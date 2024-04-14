@@ -2,6 +2,8 @@ package com.amaap.merchentguide.controller;
 
 import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
+import com.amaap.merchentguide.model.valueobject.HttpStatus;
+import com.amaap.merchentguide.model.valueobject.Response;
 import com.amaap.merchentguide.repository.IntergalacticTransactionUnitRepository;
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
 import com.amaap.merchentguide.repository.db.impl.FakeInMemoryDatabase;
@@ -23,10 +25,10 @@ public class IntergalacticTransactionUnitControllerTest {
         String intergalacticValue = "glob";
         String romanValue = "I";
         int actualValue = 1;
-        IntergalacticTransactionUnit expected = new IntergalacticTransactionUnit(intergalacticValue,romanValue,actualValue);
+        Response expected = new Response(HttpStatus.OK,"Intergalactic unit created");
 
         // act
-        IntergalacticTransactionUnit actual = intergalacticTransactionUnitController.create(intergalacticValue,romanValue,actualValue);
+        Response actual = intergalacticTransactionUnitController.create(intergalacticValue,romanValue,actualValue);
 
         // assert
         assertEquals(expected,actual);
