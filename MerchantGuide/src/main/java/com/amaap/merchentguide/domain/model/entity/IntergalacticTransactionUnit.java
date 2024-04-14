@@ -29,6 +29,14 @@ public class IntergalacticTransactionUnit {
         return intergalacticValue;
     }
 
+    public String getRomanValue() {
+        return romanValue;
+    }
+
+    public int getActualValue() {
+        return actualValue;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

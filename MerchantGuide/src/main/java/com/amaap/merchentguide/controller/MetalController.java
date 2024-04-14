@@ -2,8 +2,8 @@ package com.amaap.merchentguide.controller;
 
 import com.amaap.merchentguide.domain.model.entity.Metal;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
-import com.amaap.merchentguide.domain.model.valueobject.HttpStatus;
-import com.amaap.merchentguide.domain.model.valueobject.Response;
+import com.amaap.merchentguide.controller.dto.HttpStatus;
+import com.amaap.merchentguide.controller.dto.Response;
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
 import com.amaap.merchentguide.service.MetalService;
 

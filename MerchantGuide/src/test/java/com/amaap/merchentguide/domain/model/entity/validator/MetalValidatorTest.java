@@ -29,6 +29,5 @@ class MetalValidatorTest {
         assertTrue(isInvalidMetalName("Silver   "));
         assertTrue(isInvalidMetalName(" Silver"));
         assertTrue(isInvalidMetalName("Silver Gold"));
-
     }
 }
