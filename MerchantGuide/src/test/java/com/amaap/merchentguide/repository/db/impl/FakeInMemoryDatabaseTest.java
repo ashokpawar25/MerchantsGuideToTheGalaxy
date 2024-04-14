@@ -23,4 +23,19 @@ class FakeInMemoryDatabaseTest {
         assertEquals(expected,actual);
     }
 
+    @Test
+    void shouldBeAbleToGetIntergalacticTransactionUnitByIntergalacticTransactionUnit() throws InvalidIntergalacticTransactionUnitDataException {
+        // arrange
+        String intergalacticValue = "glob";
+        String romanValue = "I";
+        int actualValue = 1;
+        IntergalacticTransactionUnit expected = new IntergalacticTransactionUnit(intergalacticValue,romanValue,actualValue);
+
+        // act
+        fakeInMemoryDatabase.InsertIntoIntergalacticTransactionUnitTable(intergalacticValue,romanValue,actualValue);
+        IntergalacticTransactionUnit actual = fakeInMemoryDatabase.selectFromIntergalacticTransactionUnitTable(intergalacticValue);
+
+        // assert
+        assertEquals(expected,actual);
+    }
 }

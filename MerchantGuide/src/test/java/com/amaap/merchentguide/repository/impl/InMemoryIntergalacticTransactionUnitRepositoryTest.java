@@ -28,4 +28,20 @@ class InMemoryIntergalacticTransactionUnitRepositoryTest {
         assertEquals(expected,actual);
     }
 
+    @Test
+    void shouldBeAbleToGetIntergalacticTransactionUnitByIntergalacticTransactionUnit() throws InvalidIntergalacticTransactionUnitDataException {
+        // arrange
+        String intergalacticValue = "glob";
+        String romanValue = "I";
+        int actualValue = 1;
+        IntergalacticTransactionUnit expected = new IntergalacticTransactionUnit(intergalacticValue,romanValue,actualValue);
+
+        // act
+        intergalacticTransactionUnitRepository.add(intergalacticValue,romanValue,actualValue);
+        IntergalacticTransactionUnit actual = intergalacticTransactionUnitRepository.find(intergalacticValue);
+
+        // assert
+        assertEquals(expected,actual);
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.amaap.merchentguide.model.valueobject;
+package com.amaap.merchentguide.domain.model.valueobject;
 
 import java.util.Objects;
 

@@ -30,4 +30,19 @@ class IntergalacticTransactionUnitServiceTest {
         assertEquals(expected,actual);
     }
 
+    @Test
+    void shouldBeAbleToGetIntergalacticTransactionUnitByIntergalacticTransactionUnit() throws InvalidIntergalacticTransactionUnitDataException {
+        // arrange
+        String intergalacticValue = "glob";
+        String romanValue = "I";
+        int actualValue = 1;
+        IntergalacticTransactionUnit expected = new IntergalacticTransactionUnit(intergalacticValue,romanValue,actualValue);
+
+        // act
+        intergalacticTransactionUnitService.create(intergalacticValue,romanValue,actualValue);
+        IntergalacticTransactionUnit actual = intergalacticTransactionUnitService.get(intergalacticValue);
+
+        // assert
+        assertEquals(expected,actual);
+    }
 }

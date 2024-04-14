@@ -1,6 +1,8 @@
 package com.amaap.merchentguide.domain.model.entity;
 
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitValueException;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidRomanValueExceptionTransactionUnit;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,6 +22,13 @@ class IntergalacticTransactionUnitTest {
 
         // assert
         assertEquals(expected,actual);
+    }
+
+    @Test
+    void shouldBeAbleToThrowExceptionWhenInvalidDataIsProvided()
+    {
+        assertThrows(InvalidIntergalacticTransactionUnitValueException.class,()->IntergalacticTransactionUnit.create("","I",1));
+        assertThrows(InvalidRomanValueExceptionTransactionUnit.class,()->IntergalacticTransactionUnit.create("glob",null,1));
     }
 
 }
