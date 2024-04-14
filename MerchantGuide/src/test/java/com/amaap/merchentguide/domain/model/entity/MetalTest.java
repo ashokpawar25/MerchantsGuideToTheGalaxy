@@ -1,6 +1,8 @@
 package com.amaap.merchentguide.domain.model.entity;
 
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidCreditsException;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalNameException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,5 +21,14 @@ class MetalTest {
 
         // assert
         assertEquals(expected,actual);
+    }
+
+    @Test
+    void shouldBeAbleToThrowExceptionWhenInvalidDataIsPassed()
+    {
+        assertThrows(InvalidMetalNameException.class,()->Metal.create("",17));
+        assertThrows(InvalidMetalNameException.class,()->Metal.create(null,17));
+        assertThrows(InvalidCreditsException.class,()->Metal.create("Silver",0));
+        assertThrows(InvalidCreditsException.class,()->Metal.create("Gold",-4));
     }
 }
