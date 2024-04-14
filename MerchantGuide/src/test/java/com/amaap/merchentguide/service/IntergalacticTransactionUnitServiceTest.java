@@ -1,15 +1,13 @@
-package com.amaap.merchentguide.controller;
+package com.amaap.merchentguide.service;
 
 import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
-import com.amaap.merchentguide.service.IntergalacticTransactionUnitService;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class IntergalacticTransactionUnitControllerTest {
+class IntergalacticTransactionUnitServiceTest {
     IntergalacticTransactionUnitService intergalacticTransactionUnitService = new IntergalacticTransactionUnitService();
 
-    IntergalacticTransactionUnitController intergalacticTransactionUnitController = new IntergalacticTransactionUnitController(intergalacticTransactionUnitService);
     @Test
     void shouldBeAbleToCreateIntergalacticTransactionUnit()
     {
@@ -20,9 +18,10 @@ public class IntergalacticTransactionUnitControllerTest {
         IntergalacticTransactionUnit expected = new IntergalacticTransactionUnit(intergalacticValue,romanValue,actualValue);
 
         // act
-        IntergalacticTransactionUnit actual = intergalacticTransactionUnitController.create(intergalacticValue,romanValue,actualValue);
+        IntergalacticTransactionUnit actual = intergalacticTransactionUnitService.create(intergalacticValue,romanValue,actualValue);
 
         // assert
         assertEquals(expected,actual);
     }
+
 }
