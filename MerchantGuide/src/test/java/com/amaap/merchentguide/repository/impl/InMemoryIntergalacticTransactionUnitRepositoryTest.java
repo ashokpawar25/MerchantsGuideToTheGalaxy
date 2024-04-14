@@ -1,19 +1,18 @@
-package com.amaap.merchentguide.service;
+package com.amaap.merchentguide.repository.impl;
 
 import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
 import com.amaap.merchentguide.repository.IntergalacticTransactionUnitRepository;
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
 import com.amaap.merchentguide.repository.db.impl.FakeInMemoryDatabase;
-import com.amaap.merchentguide.repository.impl.InMemoryIntergalacticTransactionUnitRepository;
+import com.amaap.merchentguide.service.IntergalacticTransactionUnitService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class IntergalacticTransactionUnitServiceTest {
+class InMemoryIntergalacticTransactionUnitRepositoryTest {
+
     InMemoryDatabase inMemoryDatabase = new FakeInMemoryDatabase();
     IntergalacticTransactionUnitRepository intergalacticTransactionUnitRepository = new InMemoryIntergalacticTransactionUnitRepository(inMemoryDatabase);
-    IntergalacticTransactionUnitService intergalacticTransactionUnitService = new IntergalacticTransactionUnitService(intergalacticTransactionUnitRepository);
-
     @Test
     void shouldBeAbleToCreateIntergalacticTransactionUnit()
     {
@@ -24,7 +23,7 @@ class IntergalacticTransactionUnitServiceTest {
         IntergalacticTransactionUnit expected = new IntergalacticTransactionUnit(intergalacticValue,romanValue,actualValue);
 
         // act
-        IntergalacticTransactionUnit actual = intergalacticTransactionUnitService.create(intergalacticValue,romanValue,actualValue);
+        IntergalacticTransactionUnit actual = intergalacticTransactionUnitRepository.add(intergalacticValue,romanValue,actualValue);
 
         // assert
         assertEquals(expected,actual);
