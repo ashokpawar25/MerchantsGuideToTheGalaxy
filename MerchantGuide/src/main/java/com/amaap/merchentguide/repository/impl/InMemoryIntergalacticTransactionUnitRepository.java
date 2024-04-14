@@ -4,6 +4,7 @@ import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
 import com.amaap.merchentguide.repository.IntergalacticTransactionUnitRepository;
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
+import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
 
 public class InMemoryIntergalacticTransactionUnitRepository implements IntergalacticTransactionUnitRepository {
     InMemoryDatabase inMemoryDatabase;
@@ -13,7 +14,7 @@ public class InMemoryIntergalacticTransactionUnitRepository implements Intergala
 
 
     @Override
-    public IntergalacticTransactionUnit add(String intergalacticValue, String romanValue, int actualValue) throws InvalidIntergalacticTransactionUnitDataException {
+    public IntergalacticTransactionUnit add(String intergalacticValue, String romanValue, int actualValue) throws InvalidIntergalacticTransactionUnitDataException, IntergalacticUnitAlreadyExistException {
         return inMemoryDatabase.InsertIntoIntergalacticTransactionUnitTable(intergalacticValue,romanValue,actualValue);
     }
 

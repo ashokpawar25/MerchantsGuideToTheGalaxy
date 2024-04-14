@@ -4,6 +4,7 @@ import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
 import com.amaap.merchentguide.domain.model.valueobject.HttpStatus;
 import com.amaap.merchentguide.domain.model.valueobject.Response;
+import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
 import com.amaap.merchentguide.service.IntergalacticTransactionUnitService;
 
 public class IntergalacticTransactionUnitController {
@@ -23,7 +24,9 @@ public class IntergalacticTransactionUnitController {
         }
         catch (InvalidIntergalacticTransactionUnitDataException exception)
         {
-            return new Response(HttpStatus.BADREQUEST,"Invalid data provided");
+            return new Response(HttpStatus.BADREQUEST,exception.getMessage());
+        } catch (IntergalacticUnitAlreadyExistException exception) {
+            return new Response(HttpStatus.CONFLICT,exception.getMessage());
         }
     }
 

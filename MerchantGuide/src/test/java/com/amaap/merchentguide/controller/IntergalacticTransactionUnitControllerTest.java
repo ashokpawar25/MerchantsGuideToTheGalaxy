@@ -12,6 +12,7 @@ import com.amaap.merchentguide.service.IntergalacticTransactionUnitService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class IntergalacticTransactionUnitControllerTest {
     InMemoryDatabase inMemoryDatabase = new FakeInMemoryDatabase();
@@ -29,6 +30,19 @@ public class IntergalacticTransactionUnitControllerTest {
 
         // act
         Response actual = intergalacticTransactionUnitController.create(intergalacticValue,romanValue,actualValue);
+
+        // assert
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    void shouldBeAbleToGetBadRequestAsResponseWhenTryToCreateDuplicateIntergalacticUnit() throws InvalidIntergalacticTransactionUnitDataException {
+        // arrange
+        intergalacticTransactionUnitController.create("glob","I",1);
+        Response expected = new Response(HttpStatus.CONFLICT,"glob unit is already present");
+
+        // act
+        Response actual = intergalacticTransactionUnitController.create("glob","V",5);
 
         // assert
         assertEquals(expected,actual);
