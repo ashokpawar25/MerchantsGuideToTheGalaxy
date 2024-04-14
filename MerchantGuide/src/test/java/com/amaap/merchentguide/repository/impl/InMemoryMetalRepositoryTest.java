@@ -41,4 +41,19 @@ class InMemoryMetalRepositoryTest {
 
     }
 
+    @Test
+    void shouldBeAbleToGetMetalByName() throws InvalidMetalDataException, MetalAlreadyExistException {
+        // arrange
+        String name = "Silver";
+        long credits = 17;
+        Metal expected  = new Metal(name,credits);
+
+        // act
+        inMemoryMetalRepository.add(name,credits);
+        Metal actual = inMemoryMetalRepository.selectFromMetalTable(name);
+
+        // assert
+        assertEquals(expected,actual);
+    }
+
 }

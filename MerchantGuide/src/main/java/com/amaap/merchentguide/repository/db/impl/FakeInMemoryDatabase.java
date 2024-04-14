@@ -6,7 +6,6 @@ import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacti
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
-import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitNotFoundException;
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
 
 import java.util.ArrayList;
@@ -38,5 +37,9 @@ public class FakeInMemoryDatabase implements InMemoryDatabase {
         Metal metalToAdd = Metal.create(name,credits);
         metals.add(metalToAdd);
      return metalToAdd;
+    }
+
+    public Metal selectFromMetalTable(String name) {
+        return metals.stream().filter(metal -> metal.getName().equalsIgnoreCase(name)).findFirst().orElseThrow();
     }
 }

@@ -43,4 +43,19 @@ class MetalServiceTest {
 
     }
 
+    @Test
+    void shouldBeAbleToGetMetalByName() throws InvalidMetalDataException, MetalAlreadyExistException {
+        // arrange
+        String name = "Silver";
+        long credits = 17;
+        Metal expected  = new Metal(name,credits);
+
+        // act
+        metalService.create(name,credits);
+        Metal actual = metalService.getMetal(name);
+
+        // assert
+        assertEquals(expected,actual);
+    }
+
 }

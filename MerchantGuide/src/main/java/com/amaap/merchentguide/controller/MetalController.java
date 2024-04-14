@@ -27,4 +27,8 @@ public class MetalController {
             return new Response(HttpStatus.CONFLICT,exception.getMessage());
         }
     }
+
+    public Metal getMetal(String name) {
+        return metalService.getMetal(name);
+    }
 }

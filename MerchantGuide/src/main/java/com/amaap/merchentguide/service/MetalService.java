@@ -14,4 +14,8 @@ public class MetalService {
     public Metal create(String name, long credits) throws MetalAlreadyExistException, InvalidMetalDataException {
         return metalRepository.add(name,credits);
     }
+
+    public Metal getMetal(String name) {
+        return metalRepository.selectFromMetalTable(name);
+    }
 }

@@ -6,4 +6,5 @@ import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistExc
 
 public interface MetalRepository {
     Metal add(String name, long credits) throws MetalAlreadyExistException, InvalidMetalDataException;
+    Metal selectFromMetalTable(String name);
 }

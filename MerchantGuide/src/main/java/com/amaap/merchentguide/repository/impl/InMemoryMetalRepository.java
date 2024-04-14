@@ -16,4 +16,8 @@ public class InMemoryMetalRepository implements MetalRepository {
     public Metal add(String name, long credits) throws MetalAlreadyExistException, InvalidMetalDataException {
         return inMemoryDatabase.InsertIntoMetalTable(name,credits);
     }
+
+    public Metal selectFromMetalTable(String name) {
+        return inMemoryDatabase.selectFromMetalTable(name);
+    }
 }

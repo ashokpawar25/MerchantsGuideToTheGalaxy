@@ -13,4 +13,5 @@ public interface InMemoryDatabase {
     IntergalacticTransactionUnit selectFromIntergalacticTransactionUnitTable(String intergalacticValue);
 
     Metal InsertIntoMetalTable(String name, long credits) throws MetalAlreadyExistException, InvalidMetalDataException;
+    Metal selectFromMetalTable(String name);
 }

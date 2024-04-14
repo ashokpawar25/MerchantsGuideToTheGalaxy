@@ -47,4 +47,19 @@ public class MetalControllerTest {
         // assert
         assertEquals(expected,actual);
     }
+
+    @Test
+    void shouldBeAbleToGetMetalByName() throws InvalidMetalDataException, MetalAlreadyExistException {
+        // arrange
+        String name = "Silver";
+        long credits = 17;
+        Metal expected  = new Metal(name,credits);
+
+        // act
+        metalController.create(name,credits);
+        Metal actual = metalController.getMetal(name);
+
+        // assert
+        assertEquals(expected,actual);
+    }
 }
