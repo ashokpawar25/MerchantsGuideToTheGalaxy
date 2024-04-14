@@ -2,6 +2,7 @@ package com.amaap.merchentguide.service;
 
 import com.amaap.merchentguide.controller.MetalController;
 import com.amaap.merchentguide.domain.model.entity.Metal;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
 import com.amaap.merchentguide.repository.MetalRepository;
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
 import com.amaap.merchentguide.repository.db.impl.FakeInMemoryDatabase;
@@ -18,7 +19,7 @@ class MetalServiceTest {
 
 
     @Test
-    void shouldBeAbleToCreateMetal() throws MetalAlreadyExistException {
+    void shouldBeAbleToCreateMetal() throws MetalAlreadyExistException, InvalidMetalDataException {
         // arrange
         String name = "Silver";
         long credits = 17;
@@ -29,6 +30,16 @@ class MetalServiceTest {
 
         // assert
         assertEquals(expected,actual);
+
+    }
+
+    @Test
+    void shouldBeAbleToThrowExceptionWhenMetalIsAlreadyPresentInDatabase() throws MetalAlreadyExistException, InvalidMetalDataException {
+        // arrange
+        metalService.create("Silver",17);
+
+        // assert
+        assertThrows(MetalAlreadyExistException.class,()-> metalService.create("Silver",17));
 
     }
 

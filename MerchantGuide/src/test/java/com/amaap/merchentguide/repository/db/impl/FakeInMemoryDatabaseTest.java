@@ -3,6 +3,7 @@ package com.amaap.merchentguide.repository.db.impl;
 import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
 import com.amaap.merchentguide.domain.model.entity.Metal;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
 import com.amaap.merchentguide.repository.MetalRepository;
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
@@ -48,7 +49,7 @@ class FakeInMemoryDatabaseTest {
 
 
     @Test
-    void shouldBeAbleToAddMetalIntoMetalTable() throws MetalAlreadyExistException {
+    void shouldBeAbleToAddMetalIntoMetalTable() throws MetalAlreadyExistException, InvalidMetalDataException {
         // arrange
         String name = "Silver";
         long credits = 17;
@@ -63,7 +64,7 @@ class FakeInMemoryDatabaseTest {
     }
 
     @Test
-    void shouldBeAbleToThrowExceptionWhenMetalIsAlreadyPresentInDatabase() throws MetalAlreadyExistException {
+    void shouldBeAbleToThrowExceptionWhenMetalIsAlreadyPresentInDatabase() throws MetalAlreadyExistException, InvalidMetalDataException {
         // arrange
         fakeInMemoryDatabase.InsertIntoMetalTable("Silver",17);
 

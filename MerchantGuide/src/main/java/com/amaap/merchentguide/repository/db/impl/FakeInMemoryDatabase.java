@@ -3,6 +3,7 @@ package com.amaap.merchentguide.repository.db.impl;
 import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
 import com.amaap.merchentguide.domain.model.entity.Metal;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitNotFoundException;
@@ -31,10 +32,10 @@ public class FakeInMemoryDatabase implements InMemoryDatabase {
     }
 
     @Override
-    public Metal InsertIntoMetalTable(String name, long credits) throws MetalAlreadyExistException {
-     Metal metalToAdd = new Metal(name,credits);
+    public Metal InsertIntoMetalTable(String name, long credits) throws MetalAlreadyExistException, InvalidMetalDataException {
         Optional<Metal> existence = metals.stream().filter(metal -> metal.getName().equalsIgnoreCase(name)).findFirst();
         if(existence.isPresent()) throw new MetalAlreadyExistException(name +" is already present");
+        Metal metalToAdd = Metal.create(name,credits);
         metals.add(metalToAdd);
      return metalToAdd;
     }

@@ -1,6 +1,9 @@
 package com.amaap.merchentguide.controller;
 
 import com.amaap.merchentguide.domain.model.entity.Metal;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
+import com.amaap.merchentguide.domain.model.valueobject.HttpStatus;
+import com.amaap.merchentguide.domain.model.valueobject.Response;
 import com.amaap.merchentguide.repository.MetalRepository;
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
 import com.amaap.merchentguide.repository.db.impl.FakeInMemoryDatabase;
@@ -18,17 +21,30 @@ public class MetalControllerTest {
     MetalController metalController = new MetalController(metalService);
 
     @Test
-    void shouldBeAbleToCreateMetal() throws MetalAlreadyExistException {
+    void shouldBeAbleToCreateMetal() throws MetalAlreadyExistException, InvalidMetalDataException {
         // arrange
         String name = "Silver";
         long credits = 17;
-        Metal expected = new Metal(name,credits);
+        Response expected = new Response(HttpStatus.OK,"Metal created successfully");
 
         // act
-        Metal actual = metalController.create(name,credits);
+        Response actual = metalController.create(name,credits);
 
         // assert
         assertEquals(expected,actual);
+    }
 
+    @Test
+    void shouldBeAbleToGetConflictResponseWhenTryToAddDuplicateMetal()
+    {
+        // arrange
+        metalController.create("Silver",1000);
+        Response expected = new Response(HttpStatus.CONFLICT, "Silver is already present");
+
+        // act
+        Response actual = metalController.create("Silver",1000);
+
+        // assert
+        assertEquals(expected,actual);
     }
 }
