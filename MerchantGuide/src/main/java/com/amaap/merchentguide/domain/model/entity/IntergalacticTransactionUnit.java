@@ -1,9 +1,8 @@
 package com.amaap.merchentguide.domain.model.entity;
 
-import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticDataException;
-import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticValueException;
-import com.amaap.merchentguide.domain.model.entity.exception.InvalidRomanValueException;
-import com.amaap.merchentguide.domain.model.entity.validator.IntergalacticTransactionUnitValidator;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitValueException;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidRomanValueExceptionTransactionUnit;
 
 import java.util.Objects;
 
@@ -20,10 +19,14 @@ public class IntergalacticTransactionUnit {
         this.actualValue = actualValue;
     }
 
-    public static IntergalacticTransactionUnit create(String intergalacticValue, String romanValue, int actualValue) throws InvalidIntergalacticDataException {
-        if(isInvalidIntergalacticValue(intergalacticValue)) throw new InvalidIntergalacticValueException("Invalid intergalactic value "+ intergalacticValue);
-        if(isInvalidRomanValue(romanValue)) throw new InvalidRomanValueException("Invalid Roman value "+romanValue);
+    public static IntergalacticTransactionUnit create(String intergalacticValue, String romanValue, int actualValue) throws InvalidIntergalacticTransactionUnitDataException {
+        if(isInvalidIntergalacticValue(intergalacticValue)) throw new InvalidIntergalacticTransactionUnitValueException("Invalid intergalactic value "+ intergalacticValue);
+        if(isInvalidRomanValue(romanValue)) throw new InvalidRomanValueExceptionTransactionUnit("Invalid Roman value "+romanValue);
         return new IntergalacticTransactionUnit(intergalacticValue,romanValue,actualValue);
+    }
+
+    public String getIntergalacticValue() {
+        return intergalacticValue;
     }
 
     @Override

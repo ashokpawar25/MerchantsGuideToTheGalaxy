@@ -1,7 +1,7 @@
 package com.amaap.merchentguide.service;
 
 import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
-import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticDataException;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
 import com.amaap.merchentguide.repository.IntergalacticTransactionUnitRepository;
 
 public class IntergalacticTransactionUnitService {
@@ -10,7 +10,11 @@ public class IntergalacticTransactionUnitService {
         this.intergalacticTransactionUnitRepository = intergalacticTransactionUnitRepository;
     }
 
-    public IntergalacticTransactionUnit create(String intergalacticValue, String romanValue, int actualValue) throws InvalidIntergalacticDataException {
+    public IntergalacticTransactionUnit create(String intergalacticValue, String romanValue, int actualValue) throws InvalidIntergalacticTransactionUnitDataException {
         return intergalacticTransactionUnitRepository.add(intergalacticValue,romanValue,actualValue);
+    }
+
+    public IntergalacticTransactionUnit get(String intergalacticValue) {
+        return intergalacticTransactionUnitRepository.find(intergalacticValue);
     }
 }

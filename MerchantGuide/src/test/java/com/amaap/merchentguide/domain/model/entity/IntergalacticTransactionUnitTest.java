@@ -1,6 +1,6 @@
 package com.amaap.merchentguide.domain.model.entity;
 
-import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticDataException;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class IntergalacticTransactionUnitTest {
 
     @Test
-    void shouldBeAbleToCreateIntergalacticTransactionUnit() throws InvalidIntergalacticDataException {
+    void shouldBeAbleToCreateIntergalacticTransactionUnit() throws InvalidIntergalacticTransactionUnitDataException {
         // arrange
         String intergalacticValue = "glob";
         String romanValue = "I";

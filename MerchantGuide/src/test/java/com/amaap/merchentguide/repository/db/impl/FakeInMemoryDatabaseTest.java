@@ -1,10 +1,7 @@
 package com.amaap.merchentguide.repository.db.impl;
 
 import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
-import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticDataException;
-import com.amaap.merchentguide.repository.IntergalacticTransactionUnitRepository;
-import com.amaap.merchentguide.repository.db.InMemoryDatabase;
-import com.amaap.merchentguide.repository.impl.InMemoryIntergalacticTransactionUnitRepository;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class FakeInMemoryDatabaseTest {
     FakeInMemoryDatabase fakeInMemoryDatabase = new FakeInMemoryDatabase();
     @Test
-    void shouldBeAbleToCreateIntergalacticTransactionUnit() throws InvalidIntergalacticDataException {
+    void shouldBeAbleToCreateIntergalacticTransactionUnit() throws InvalidIntergalacticTransactionUnitDataException {
         // arrange
         String intergalacticValue = "glob";
         String romanValue = "I";
