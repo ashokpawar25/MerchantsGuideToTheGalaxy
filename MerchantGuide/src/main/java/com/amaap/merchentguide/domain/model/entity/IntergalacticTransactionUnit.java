@@ -3,9 +3,9 @@ package com.amaap.merchentguide.domain.model.entity;
 import java.util.Objects;
 
 public class IntergalacticTransactionUnit {
-    String intergalacticValue;
-    String romanValue;
-    int actualValue;
+    private String intergalacticValue;
+    private String romanValue;
+    private int actualValue;
     public IntergalacticTransactionUnit(String intergalacticValue, String romanValue, int actualValue) {
         this.intergalacticValue = intergalacticValue;
         this.romanValue = romanValue;
