@@ -28,6 +28,10 @@ public class IOService {
                         intergalacticUnitService.create(parsedUnit.interGalacticValue,parsedUnit.romanValue,parsedUnit.actualValue);
                     }
                 }
+                else if (line.endsWith("Credits"))
+                {
+                    boolean isValidMetal = InputValidator.metalCreditsValidator(line);
+                }
             }
         } catch (IOException e) {
             return false;

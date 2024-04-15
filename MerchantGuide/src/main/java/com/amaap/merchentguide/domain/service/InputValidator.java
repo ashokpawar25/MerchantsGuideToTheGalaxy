@@ -18,4 +18,8 @@ public class InputValidator {
             return true;
         return false;
     }
+
+    public static boolean metalCreditsValidator(String line) {
+
+    }
 }
