@@ -52,7 +52,7 @@ glob prok Gold is 57800 Credits
 glob prok Iron is 782 Credits
 I have no idea what you are talking about
 
-#Package : Domain (Having information of models and services)
+# Package : Domain (Having information of models and services)
 
 # Models:
 
@@ -124,11 +124,6 @@ I have no idea what you are talking about
 ## Behaviors
 - `public static boolean unitValidator(String line) throws IOException`
 - `public static boolean metalCreditsValidator(String line) throws IOException`
-
-# UnitConverter
-
-## Behaviors
-- `public static long romanToDecimalConverter(StringBuilder romanValue)`
 
 # UnitConverter
 
@@ -235,3 +230,11 @@ I have no idea what you are talking about
 - `Metal selectFromMetalTable(String name)`
 
 # Database (Storing actal database)
+
+# InMemoryDatabase
+
+## Behaviors
+- `IntergalacticTransactionUnit InsertIntoIntergalacticTransactionUnitTable(String intergalacticValue, String romanValue, int actualValue)`
+- `IntergalacticTransactionUnit selectFromIntergalacticTransactionUnitTable(String intergalacticValue)`
+- `Metal InsertIntoMetalTable(String name, long credits)`
+- `Metal selectFromMetalTable(String name)`
