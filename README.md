@@ -51,3 +51,187 @@ glob prok Silver is 68 Credits
 glob prok Gold is 57800 Credits
 glob prok Iron is 782 Credits
 I have no idea what you are talking about
+
+#Package : Domain (Having information of models and services)
+
+# Models:
+
+# IntergalacticTransactionUnit
+
+## States
+- `private String intergalacticValue`
+- `private String romanValue`
+- `private int actualValue`
+
+## Constructors
+- `public IntergalacticTransactionUnit(String intergalacticValue, String romanValue, int actualValue)`
+- `public static IntergalacticTransactionUnit create(String intergalacticValue, String romanValue, int actualValue)`
+
+## Behaviors
+- `public String getIntergalacticValue()`
+- `public String getRomanValue()`
+- `public int getActualValue()`
+- `@Override public boolean equals(Object o)`
+
+# Metal
+
+## States
+- `private String name`
+- `private long credits`
+
+## Constructors
+- `public Metal(String name, long credits)`
+- `public static Metal create(String name, long credits)`
+
+## Behaviors
+- `public String getName()`
+- `@Override public boolean equals(Object o)`
+
+# Validator (validate the states of models)
+
+# IntergalacticTransactionUnitValidator
+
+## Behaviors
+- `public static boolean isInvalidIntergalacticValue(String intergalacticValue)`
+- `public static boolean isInvalidRomanValue(String romanValue)`
+
+# MetalValidator
+
+## Behaviors
+- `public static boolean isInvalidMetalName(String name)`
+- `public static boolean isInvalidCredits(long credits)`
+
+# IOService
+
+## States
+- `IntergalacticTransactionUnitService intergalacticUnitService`
+- `MetalService metalService`
+
+## Constructors
+- `public IOService(IntergalacticTransactionUnitService intergalacticTransactionUnitService, MetalService metalService)`
+
+## Behaviors
+- `public boolean readFile(String filePath)`
+
+# InputParser
+
+## Behaviors
+- `public static IntergalacticUnitDto parseUnit(String line) throws IOException`
+- `public static MetalDto parseMetal(String line, IntergalacticTransactionUnitService intergalacticUnitService) throws IOException`
+
+# InputValidator
+
+## Behaviors
+- `public static boolean unitValidator(String line) throws IOException`
+- `public static boolean metalCreditsValidator(String line) throws IOException`
+
+# UnitConverter
+
+## Behaviors
+- `public static long romanToDecimalConverter(StringBuilder romanValue)`
+
+# UnitConverter
+
+## Behaviors
+- `public static long romanToDecimalConverter(StringBuilder romanValue)`
+- `public static long DecimalToRomanConverter(long decimalValue)`
+
+# Controller (Delegating operations of enitities)
+
+# IntergalacticTransactionUnitController
+
+## States
+- `IntergalacticTransactionUnitService intergalacticTransactionUnitService`
+
+## Constructors
+- `public IntergalacticTransactionUnitController(IntergalacticTransactionUnitService intergalacticTransactionUnitService)`
+
+## Behaviors
+- `public Response create(String intergalacticValue, String romanValue, int actualValue)`
+- `public IntergalacticTransactionUnit get(String intergalacticValue)`
+
+# MetalController
+
+## States
+- `MetalService metalService`
+
+## Constructors
+- `public MetalController(MetalService metalService)`
+
+## Behaviors
+- `public Response create(String name, long credits)`
+- `public Metal getMetal(String name)`
+# IOController
+
+## States
+- `IOService ioService`
+
+## Constructors
+- `public IOController(IOService ioService)`
+
+## Behaviors
+- `public boolean readFile(String filePath)`
+
+# controller/dto (used to send http response from the controller)
+
+# Response
+
+## States
+- `HttpStatus httpStatus`
+- `String message`
+
+## Constructors
+- `public Response(HttpStatus httpStatus, String message)`
+
+## Behaviors
+- `@Override public boolean equals(Object o)`
+
+
+# HttpStatus
+
+## Enum Values
+- `BADREQUEST`
+- `CONFLICT`
+- `OK`
+
+# Service( It is layer between controller and repository)
+
+# IntergalacticTransactionUnitService
+
+## States
+- `IntergalacticTransactionUnitRepository intergalacticTransactionUnitRepository`
+
+## Constructors
+- `public IntergalacticTransactionUnitService(IntergalacticTransactionUnitRepository intergalacticTransactionUnitRepository)`
+
+## Behaviors
+- `public IntergalacticTransactionUnit create(String intergalacticValue, String romanValue, int actualValue)`
+- `public IntergalacticTransactionUnit get(String intergalacticValue)`
+
+# MetalService
+
+## States
+- `MetalRepository metalRepository`
+
+## Constructors
+- `public MetalService(MetalRepository metalRepository)`
+
+## Behaviors
+- `public Metal create(String name, long credits)`
+- `public Metal getMetal(String name)`
+
+# Repository (Abstration between database and service)
+
+# IntergalacticTransactionUnitRepository
+
+## Behaviors
+- `IntergalacticTransactionUnit add(String intergalacticValue, String romanValue, int actualValue)`
+- `IntergalacticTransactionUnit find(String intergalacticValue)`
+
+# MetalRepository
+
+## Behaviors
+- `Metal add(String name, long credits)`
+- `Metal selectFromMetalTable(String name)`
+
+# Database (Storing actal database)
