@@ -38,7 +38,7 @@ public class IOService {
                     boolean isValidMetal = InputValidator.metalCreditsValidator(line);
                     if(isValidMetal)
                     {
-                        MetalDto metalDto = InputParser.parseMetal(line);
+                        MetalDto metalDto = InputParser.parseMetal(line,intergalacticUnitService);
                         metalService.create(metalDto.metal, metalDto.credits);
                     }
                 }
