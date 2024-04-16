@@ -1,4 +1,4 @@
-package com.amaap.merchentguide.service;
+package com.amaap.merchentguide.domain.service.io;
 
 import com.amaap.merchentguide.domain.model.dto.IntergalacticUnitDto;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
@@ -8,6 +8,8 @@ import com.amaap.merchentguide.domain.service.InputValidator;
 import com.amaap.merchentguide.domain.model.dto.MetalDto;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
+import com.amaap.merchentguide.service.IntergalacticTransactionUnitService;
+import com.amaap.merchentguide.service.MetalService;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -52,7 +54,7 @@ public class IOService {
         } catch (InvalidMetalDataException e) {
             return false;
         } catch (MetalAlreadyExistException e) {
-            throw new RuntimeException(e);
+            return false;
         }
         return true;
     }

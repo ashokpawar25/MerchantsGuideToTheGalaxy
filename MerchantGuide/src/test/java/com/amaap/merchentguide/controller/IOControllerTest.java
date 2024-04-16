@@ -1,10 +1,9 @@
 package com.amaap.merchentguide.controller;
 
-import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
 import com.amaap.merchentguide.repository.db.impl.FakeInMemoryDatabase;
 import com.amaap.merchentguide.repository.impl.InMemoryIntergalacticTransactionUnitRepository;
 import com.amaap.merchentguide.repository.impl.InMemoryMetalRepository;
-import com.amaap.merchentguide.service.IOService;
+import com.amaap.merchentguide.domain.service.io.IOService;
 import com.amaap.merchentguide.service.IntergalacticTransactionUnitService;
 import com.amaap.merchentguide.service.MetalService;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
 package com.amaap.merchentguide.controller;
 
-import com.amaap.merchentguide.service.IOService;
+import com.amaap.merchentguide.domain.service.io.IOService;
 
 public class IOController {
     IOService ioService ;
