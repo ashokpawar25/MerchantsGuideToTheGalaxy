@@ -3,6 +3,7 @@ package com.amaap.merchentguide.domain.service;
 import com.amaap.merchentguide.domain.model.dto.IntergalacticUnitDto;
 import com.amaap.merchentguide.domain.model.dto.MetalDto;
 import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
+import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
 import com.amaap.merchentguide.service.IntergalacticTransactionUnitService;
 import org.yaml.snakeyaml.Yaml;
 
@@ -28,7 +29,7 @@ public class InputParser {
         return dto;
     }
 
-    public static MetalDto parseMetal(String line, IntergalacticTransactionUnitService intergalacticUnitService) throws IOException {
+    public static MetalDto parseMetal(String line, IntergalacticTransactionUnitService intergalacticUnitService) throws IOException, InvalidRomanValueException {
         Yaml yaml = new Yaml();
         FileInputStream intergalacticUnitInputStream = new FileInputStream("G://Amaap//MerchentGuide//MerchantGuide//src//main//java//com//amaap//merchentguide//resources//interGalacticUnit.yml");
         FileInputStream metalInputStream = new FileInputStream("G://Amaap//MerchentGuide//MerchantGuide//src//main//java//com//amaap//merchentguide//resources//validMetals.yml");
@@ -53,9 +54,10 @@ public class InputParser {
                 metal = data;
             }
         }
-        UnitConverter.romanToDecimalConverter(romanValue);
-        long credits = Long.parseLong(lineData[lineData.length-2]);
-        MetalDto metalDto = new MetalDto(metal,credits);
+        long totalUnits = UnitConverter.romanToDecimalConverter(romanValue.toString());
+        long totalCredits = Long.parseLong(lineData[lineData.length-2]);
+        long creditsForSingleUnit = totalCredits/totalUnits;
+        MetalDto metalDto = new MetalDto(metal,creditsForSingleUnit);
         return metalDto;
     }
 }

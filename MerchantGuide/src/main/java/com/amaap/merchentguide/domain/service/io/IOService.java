@@ -6,6 +6,7 @@ import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataExc
 import com.amaap.merchentguide.domain.service.InputParser;
 import com.amaap.merchentguide.domain.service.InputValidator;
 import com.amaap.merchentguide.domain.model.dto.MetalDto;
+import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
 import com.amaap.merchentguide.service.IntergalacticTransactionUnitService;
@@ -55,6 +56,8 @@ public class IOService {
             return false;
         } catch (MetalAlreadyExistException e) {
             return false;
+        } catch (InvalidRomanValueException e) {
+            throw new RuntimeException(e);
         }
         return true;
     }

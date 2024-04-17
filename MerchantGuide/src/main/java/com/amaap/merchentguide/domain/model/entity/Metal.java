@@ -25,6 +25,10 @@ public class Metal {
         return name;
     }
 
+    public long getCredits() {
+        return credits;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

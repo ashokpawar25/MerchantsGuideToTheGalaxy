@@ -23,22 +23,39 @@ class IOServiceTest {
     IOService ioService = new IOService(intergalacticTransactionUnitService,metalService);
 
     @Test
-    void shouldBeAbleToReadFileAndInsertUnitsIntoDatabase() {
+    void shouldBeAbleToReadFileAndInsertIntergalacticUnitIntoDatabase() {
         // arrange
         String filePath = "G://Amaap//MerchentGuide//MerchantGuide//src//main//java//com//amaap//merchentguide//resources//inputData.txt";
         String expectedUnit = "I";
-        String expectedMetal = "Silver";
 
         // act
         boolean isReadable = ioService.readFile(filePath);
         IntergalacticTransactionUnit unit = intergalacticTransactionUnitService.get("glob");
-        Metal metal = metalService.getMetal("Silver");
         String actualUnit = unit.getRomanValue();
-        String actualMetal = metal.getName();
 
         // assert
         assertTrue(isReadable);
         assertEquals(expectedUnit,actualUnit);
+
+    }
+
+    @Test
+    void shouldBeAbleToReadFileAndInsertMetalIntoDatabase() {
+        // arrange
+        String filePath = "G://Amaap//MerchentGuide//MerchantGuide//src//main//java//com//amaap//merchentguide//resources//inputData.txt";
+        String expectedMetal = "Silver";
+        long expectedCredits = 17;
+
+
+        // act
+        boolean isReadable = ioService.readFile(filePath);
+        Metal metal = metalService.getMetal("Silver");
+        String actualMetal = metal.getName();
+        long actualCredits = metal.getCredits();
+
+        // assert
+        assertTrue(isReadable);
         assertEquals(expectedMetal,actualMetal);
+        assertEquals(expectedCredits,actualCredits);
     }
 }
