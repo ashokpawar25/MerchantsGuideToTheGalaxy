@@ -3,8 +3,8 @@ package com.amaap.merchentguide.domain.service.io;
 import com.amaap.merchentguide.domain.model.dto.IntergalacticUnitDto;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
-import com.amaap.merchentguide.domain.service.InputParser;
-import com.amaap.merchentguide.domain.service.InputValidator;
+import com.amaap.merchentguide.domain.service.io.parser.InputParser;
+import com.amaap.merchentguide.domain.service.io.validator.InputValidator;
 import com.amaap.merchentguide.domain.model.dto.MetalDto;
 import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
@@ -36,7 +36,7 @@ public class IOService {
                         intergalacticUnitService.create(parsedUnit.interGalacticValue,parsedUnit.romanValue,parsedUnit.actualValue);
                     }
                 }
-                else if (line.endsWith("Credits"))
+                else if (line.matches("^([a-zA-Z]+(?: [a-zA-Z]+)*) ([a-zA-Z]+) is (\\d+) Credits$"))
                 {
                     boolean isValidMetal = InputValidator.metalCreditsValidator(line);
                     if(isValidMetal)
@@ -46,18 +46,10 @@ public class IOService {
                     }
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | InvalidIntergalacticTransactionUnitDataException |
+                 IntergalacticUnitAlreadyExistException | InvalidMetalDataException | MetalAlreadyExistException |
+                 InvalidRomanValueException e) {
             return false;
-        } catch (InvalidIntergalacticTransactionUnitDataException e) {
-            return false;
-        } catch (IntergalacticUnitAlreadyExistException e) {
-            return false;
-        } catch (InvalidMetalDataException e) {
-            return false;
-        } catch (MetalAlreadyExistException e) {
-            return false;
-        } catch (InvalidRomanValueException e) {
-            throw new RuntimeException(e);
         }
         return true;
     }

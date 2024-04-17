@@ -1,8 +1,10 @@
-package com.amaap.merchentguide.domain.service;
+package com.amaap.merchentguide.domain.service.io.parser;
 
 import com.amaap.merchentguide.domain.model.dto.IntergalacticUnitDto;
 import com.amaap.merchentguide.domain.model.dto.MetalDto;
 import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
+import com.amaap.merchentguide.domain.model.valueobject.RomanNumbers;
+import com.amaap.merchentguide.domain.service.UnitConverter;
 import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
 import com.amaap.merchentguide.service.IntergalacticTransactionUnitService;
 import org.yaml.snakeyaml.Yaml;
@@ -18,27 +20,18 @@ public class InputParser {
 
         String[] lineData = line.split(" ");
         String interGalacticUnit = lineData[0];
-        String romanValue = lineData[2];
-
-        Yaml yaml = new Yaml();
-        FileInputStream inputStream = new FileInputStream("G://Amaap//MerchentGuide//MerchantGuide//src//main//java//com//amaap//merchentguide//resources//RomanValues.yml");
-        Map<String, Integer> yamlData = yaml.load(inputStream);
-        inputStream.close();
-        Integer actualValue = yamlData.get(romanValue);
-        IntergalacticUnitDto dto = new IntergalacticUnitDto(interGalacticUnit,romanValue,actualValue);
-        return dto;
+        String romanValue = lineData[2].toUpperCase();
+        int actualValue = RomanNumbers.valueOf(romanValue).getValue();
+        return new IntergalacticUnitDto(interGalacticUnit,romanValue,actualValue);
     }
 
     public static MetalDto parseMetal(String line, IntergalacticTransactionUnitService intergalacticUnitService) throws IOException, InvalidRomanValueException {
         Yaml yaml = new Yaml();
-        FileInputStream intergalacticUnitInputStream = new FileInputStream("G://Amaap//MerchentGuide//MerchantGuide//src//main//java//com//amaap//merchentguide//resources//interGalacticUnit.yml");
-        FileInputStream metalInputStream = new FileInputStream("G://Amaap//MerchentGuide//MerchantGuide//src//main//java//com//amaap//merchentguide//resources//validMetals.yml");
-        Map<String, List<String>> yamlDataForUnits = yaml.load(intergalacticUnitInputStream);
-        Map<String, List<String>> yamlDataForMetals = yaml.load(metalInputStream);
-        List<String> validUnits = yamlDataForUnits.get("interGalacticUnits");
-        List<String> validMetals = yamlDataForMetals.get("validMetals");
-        intergalacticUnitInputStream.close();
-        metalInputStream.close();
+        FileInputStream inputStream = new FileInputStream("G://Amaap//MerchentGuide//MerchantGuide//src//main//java//com//amaap//merchentguide//resources//validData.yml");
+        Map<String, List<String>> yamlData = yaml.load(inputStream);
+        List<String> validUnits = yamlData.get("interGalacticUnits");
+        List<String> validMetals = yamlData.get("validMetals");
+        inputStream.close();
         String [] lineData = line.split(" ");
         StringBuilder romanValue = new StringBuilder();
         String metal = null;
@@ -57,7 +50,6 @@ public class InputParser {
         long totalUnits = UnitConverter.romanToDecimalConverter(romanValue.toString());
         long totalCredits = Long.parseLong(lineData[lineData.length-2]);
         long creditsForSingleUnit = totalCredits/totalUnits;
-        MetalDto metalDto = new MetalDto(metal,creditsForSingleUnit);
-        return metalDto;
+        return new MetalDto(metal,creditsForSingleUnit);
     }
 }
