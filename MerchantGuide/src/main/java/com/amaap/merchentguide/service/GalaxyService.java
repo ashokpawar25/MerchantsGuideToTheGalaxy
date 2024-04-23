@@ -1,4 +1,4 @@
-package com.amaap.merchentguide.domain.service.io;
+package com.amaap.merchentguide.service;
 
 import com.amaap.merchentguide.domain.model.dto.IntergalacticUnitDto;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
@@ -11,15 +11,14 @@ import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlr
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
 import com.amaap.merchentguide.service.IntergalacticTransactionUnitService;
 import com.amaap.merchentguide.service.MetalService;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class IOService {
+public class GalaxyService {
     IntergalacticTransactionUnitService intergalacticUnitService;
     MetalService metalService ;
-    public IOService(IntergalacticTransactionUnitService intergalacticTransactionUnitService,MetalService metalService) {
+    public GalaxyService(IntergalacticTransactionUnitService intergalacticTransactionUnitService, MetalService metalService) {
         this.intergalacticUnitService = intergalacticTransactionUnitService;
         this.metalService = metalService;
     }

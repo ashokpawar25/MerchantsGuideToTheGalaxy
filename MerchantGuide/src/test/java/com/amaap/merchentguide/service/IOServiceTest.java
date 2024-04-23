@@ -2,7 +2,6 @@ package com.amaap.merchentguide.service;
 
 import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
 import com.amaap.merchentguide.domain.model.entity.Metal;
-import com.amaap.merchentguide.domain.service.io.IOService;
 import com.amaap.merchentguide.repository.db.impl.FakeInMemoryDatabase;
 import com.amaap.merchentguide.repository.impl.InMemoryIntergalacticTransactionUnitRepository;
 import com.amaap.merchentguide.repository.impl.InMemoryMetalRepository;
@@ -20,7 +19,7 @@ class IOServiceTest {
 
     MetalService metalService = new MetalService(new InMemoryMetalRepository(new FakeInMemoryDatabase()));
 
-    IOService ioService = new IOService(intergalacticTransactionUnitService,metalService);
+    GalaxyService ioService = new GalaxyService(intergalacticTransactionUnitService,metalService);
 
     @Test
     void shouldBeAbleToReadFileAndInsertIntergalacticUnitIntoDatabase() {

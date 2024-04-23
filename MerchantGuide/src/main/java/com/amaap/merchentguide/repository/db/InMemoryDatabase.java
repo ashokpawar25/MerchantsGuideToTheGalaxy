@@ -2,6 +2,7 @@ package com.amaap.merchentguide.repository.db;
 
 import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
 import com.amaap.merchentguide.domain.model.entity.Metal;
+import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
@@ -14,4 +15,6 @@ public interface InMemoryDatabase {
 
     Metal InsertIntoMetalTable(String name, long credits) throws MetalAlreadyExistException, InvalidMetalDataException;
     Metal selectFromMetalTable(String name);
+
+    QueryDto insertIntoQueryTable(QueryDto queryDto);
 }
