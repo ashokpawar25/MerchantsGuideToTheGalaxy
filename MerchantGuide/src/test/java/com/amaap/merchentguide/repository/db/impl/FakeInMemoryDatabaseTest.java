@@ -6,6 +6,7 @@ import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacti
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
 import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
 import com.amaap.merchentguide.domain.model.valueobject.QueryType;
+import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDataException;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
 import org.junit.jupiter.api.Test;
@@ -87,15 +88,15 @@ class FakeInMemoryDatabaseTest {
     }
 
     @Test
-    void shouldBeAbleToAddQueryIntoDatabase()
-    {
+    void shouldBeAbleToAddQueryIntoDatabase() throws InvalidQueryDataException {
         // arrange
-        QueryType queryType = QueryType.UnitQuery;
+        int id = 1;
+        QueryType queryType = QueryType.UNIT_QUERY;
         String queryContent = "How much is glob prok ?";
-        QueryDto expected = new QueryDto(queryType,queryContent);
+        QueryDto expected = new QueryDto(1,queryType,queryContent);
 
         // act
-        QueryDto actual = fakeInMemoryDatabase.insertIntoQueryTable(expected);
+        QueryDto actual = fakeInMemoryDatabase.insertIntoQueryTable(queryType,queryContent);
 
         // assert
         assertEquals(expected,actual);

@@ -2,6 +2,7 @@ package com.amaap.merchentguide.service;
 
 import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
 import com.amaap.merchentguide.domain.model.valueobject.QueryType;
+import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDataException;
 import com.amaap.merchentguide.repository.QueryRepository;
 
 public class QueryService {
@@ -10,8 +11,7 @@ public class QueryService {
         this.queryRepository = queryRepository;
     }
 
-    public QueryDto create(QueryType queryType, String queryContent) {
-        QueryDto query = new QueryDto(queryType,queryContent);
-        return queryRepository.add(query);
+    public QueryDto create(QueryType queryType, String queryContent) throws InvalidQueryDataException {
+        return queryRepository.add(queryType,queryContent);
     }
 }

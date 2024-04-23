@@ -3,6 +3,7 @@ package com.amaap.merchentguide.controller;
 import com.amaap.merchentguide.controller.dto.HttpStatus;
 import com.amaap.merchentguide.controller.dto.Response;
 import com.amaap.merchentguide.domain.model.valueobject.QueryType;
+import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDataException;
 import com.amaap.merchentguide.repository.QueryRepository;
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
 import com.amaap.merchentguide.repository.db.impl.FakeInMemoryDatabase;
@@ -19,10 +20,9 @@ public class QueryControllerTest {
     QueryController queryController = new QueryController(queryService);
     
     @Test
-    void shouldBeAbleToCreateQuery()
-    {
+    void shouldBeAbleToGetOkResponseWhenCreateQueryQuery() throws InvalidQueryDataException {
         // arrange
-        QueryType queryType = QueryType.UnitQuery;
+        QueryType queryType = QueryType.UNIT_QUERY;
         String queryContent = "How much is glob prok ?";
         Response expected = new Response(HttpStatus.OK,"Query created successfully");
 

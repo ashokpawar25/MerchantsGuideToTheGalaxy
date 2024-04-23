@@ -5,6 +5,8 @@ import com.amaap.merchentguide.domain.model.entity.Metal;
 import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
+import com.amaap.merchentguide.domain.model.valueobject.QueryType;
+import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDataException;
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
@@ -17,6 +19,7 @@ public class FakeInMemoryDatabase implements InMemoryDatabase {
     List<IntergalacticTransactionUnit> intergalacticTransactionUnits = new ArrayList<>();
     List<Metal> metals = new ArrayList<>();
     List<QueryDto> queries = new ArrayList<>();
+    private int queryIdCounter = 1;
 
     @Override
     public IntergalacticTransactionUnit InsertIntoIntergalacticTransactionUnitTable(
@@ -56,7 +59,8 @@ public class FakeInMemoryDatabase implements InMemoryDatabase {
     }
 
     @Override
-    public QueryDto insertIntoQueryTable(QueryDto queryDto) {
+    public QueryDto insertIntoQueryTable(QueryType queryType, String queryContent) throws InvalidQueryDataException {
+        QueryDto queryDto = QueryDto.create(queryIdCounter++,queryType,queryContent);
         queries.add(queryDto);
         return queryDto;
     }
