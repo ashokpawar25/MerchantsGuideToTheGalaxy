@@ -6,11 +6,15 @@ import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacti
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
 import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
 import com.amaap.merchentguide.domain.model.valueobject.QueryType;
+import com.amaap.merchentguide.domain.model.valueobject.builder.QueryBuilder;
 import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDataException;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
+import static com.amaap.merchentguide.domain.model.valueobject.builder.QueryBuilder.getQueries;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FakeInMemoryDatabaseTest {
@@ -102,4 +106,17 @@ class FakeInMemoryDatabaseTest {
         assertEquals(expected,actual);
     }
 
+    @Test
+    void shouldBeAbleToGetAllQueriesFromDatabase() throws InvalidQueryDataException {
+        // arrange
+        List<QueryDto> expected = getQueries();
+
+        // act
+        fakeInMemoryDatabase.insertIntoQueryTable(QueryType.UNIT_QUERY,"How much is glob prok?");
+        fakeInMemoryDatabase.insertIntoQueryTable(QueryType.METAL_QUERY,"how many Credits is glob prok Iron ?");
+        List<QueryDto> actual = fakeInMemoryDatabase.getAllQueries();
+
+        // assert
+        assertEquals(expected,actual);
+    }
 }

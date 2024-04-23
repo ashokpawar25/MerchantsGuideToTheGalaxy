@@ -6,6 +6,8 @@ import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDa
 import com.amaap.merchentguide.repository.QueryRepository;
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
 
+import java.util.List;
+
 public class InMemoryQueryRepository implements QueryRepository {
     InMemoryDatabase inMemoryDatabase;
     public InMemoryQueryRepository(InMemoryDatabase inMemoryDatabase) {
@@ -15,5 +17,10 @@ public class InMemoryQueryRepository implements QueryRepository {
     @Override
     public QueryDto add(QueryType queryType, String queryContent) throws InvalidQueryDataException {
         return inMemoryDatabase.insertIntoQueryTable(queryType,queryContent);
+    }
+
+    @Override
+    public List<QueryDto> getAllQueries() {
+        return inMemoryDatabase.getAllQueries();
     }
 }

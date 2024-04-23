@@ -64,4 +64,9 @@ public class FakeInMemoryDatabase implements InMemoryDatabase {
         queries.add(queryDto);
         return queryDto;
     }
+
+    @Override
+    public List<QueryDto> getAllQueries() {
+        return queries;
+    }
 }

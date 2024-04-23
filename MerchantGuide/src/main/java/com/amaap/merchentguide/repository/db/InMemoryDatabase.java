@@ -10,6 +10,8 @@ import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDa
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
 
+import java.util.List;
+
 public interface InMemoryDatabase {
     IntergalacticTransactionUnit InsertIntoIntergalacticTransactionUnitTable(String intergalacticValue, String romanValue, int actualValue) throws InvalidIntergalacticTransactionUnitDataException, IntergalacticUnitAlreadyExistException;
 
@@ -19,4 +21,6 @@ public interface InMemoryDatabase {
     Metal selectFromMetalTable(String name);
 
     QueryDto insertIntoQueryTable(QueryType queryType, String queryContent) throws InvalidQueryDataException;
+
+    List<QueryDto> getAllQueries();
 }
