@@ -12,9 +12,9 @@ import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlr
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
 import com.amaap.merchentguide.service.exception.InvalidInputFileDataException;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.amaap.merchentguide.domain.service.io.validator.InputValidator.metalCreditsValidator;
 import static com.amaap.merchentguide.domain.service.io.validator.InputValidator.unitValidator;
@@ -40,7 +40,7 @@ public class GalaxyService {
                         IntergalacticUnitDto parsedUnit = InputParser.parseUnit(line);
                         intergalacticUnitService.create(parsedUnit.interGalacticValue, parsedUnit.romanValue, parsedUnit.actualValue);
                     }
-                } else if (line.matches("^([a-zA-Z]+(?: [a-zA-Z]+)*) ([a-zA-Z]+) is (\\d+) Credits$")) {
+                } else if (line.matches("^([a-zA-Z]+(?:\\s+[a-zA-Z]+)*)\\s+([a-zA-Z]+)\\s+is\\s+(\\d+)\\s+Credits$")) {
                     boolean isValidMetal = metalCreditsValidator(line);
                     if (isValidMetal) {
                         MetalDto metalDto = InputParser.parseMetal(line, intergalacticUnitService);

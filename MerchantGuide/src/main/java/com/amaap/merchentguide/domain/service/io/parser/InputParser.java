@@ -17,10 +17,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import static com.amaap.merchentguide.domain.service.UnitConverter.romanToDecimalConverter;
+
 public class InputParser {
 
     public static IntergalacticUnitDto parseUnit(String line) throws IOException {
-
+        line = line.replaceAll("\\s+", " ");
         String[] lineData = line.split(" ");
         String interGalacticUnit = lineData[0];
         String romanValue = lineData[2].toUpperCase();
@@ -29,10 +31,10 @@ public class InputParser {
     }
 
     public static MetalDto parseMetal(String line, IntergalacticTransactionUnitService intergalacticUnitService) throws IOException, InvalidRomanValueException {
+        line = line.replaceAll("\\s+", " ");
         Yaml yaml = new Yaml();
         FileInputStream inputStream = new FileInputStream("src/main/java/com/amaap/merchentguide/resources/validData.yml");
         Map<String, List<String>> yamlData = yaml.load(inputStream);
-        List<String> validUnits = yamlData.get("interGalacticUnits");
         List<String> validMetals = yamlData.get("validMetals");
         inputStream.close();
         String [] lineData = line.split(" ");
@@ -40,23 +42,24 @@ public class InputParser {
         String metal = null;
         for(String data:lineData)
         {
-            if(validUnits.contains(data)) {
-                IntergalacticTransactionUnit intergalacticUnit = intergalacticUnitService.get(data);
-                String romanValueForUnit = intergalacticUnit.getRomanValue();
-                romanValue.append(romanValueForUnit);
-            }
-            else if(validMetals.contains(data))
+            if(validMetals.contains(data))
             {
                 metal = data;
             }
         }
-        long totalUnits = UnitConverter.romanToDecimalConverter(romanValue.toString());
+        for(int i = 0;i< lineData.length-4;i++)
+        {
+            IntergalacticTransactionUnit intergalacticUnit = intergalacticUnitService.get(lineData[i]);
+            romanValue.append(intergalacticUnit.getRomanValue());
+        }
+        long totalUnits = romanToDecimalConverter(romanValue.toString());
         long totalCredits = Long.parseLong(lineData[lineData.length-2]);
         long creditsForSingleUnit = totalCredits/totalUnits;
         return new MetalDto(metal,creditsForSingleUnit);
     }
 
     public static QueryParserDto parseQuery(String line) {
+        line = line.replaceAll("\\s+", " ");
         QueryType queryType;
         if(line.matches("^how much is (.+)\\s*\\?$"))
         {

@@ -31,7 +31,7 @@ class GalaxyServiceTest {
     @Test
     void shouldBeAbleToReadFileAndInsertIntergalacticUnitIntoDatabase() {
         // arrange
-        String filePath = "G://Amaap//MerchentGuide//MerchantGuide//src//main//java//com//amaap//merchentguide//resources//inputData.txt";
+        String filePath = "src/main/java/com/amaap/merchentguide/resources/inputData.txt";
         String expectedUnit = "I";
 
         // act
@@ -48,7 +48,7 @@ class GalaxyServiceTest {
     @Test
     void shouldBeAbleToReadFileAndInsertMetalIntoDatabase() {
         // arrange
-        String filePath = "G://Amaap//MerchentGuide//MerchantGuide//src//main//java//com//amaap//merchentguide//resources//inputData.txt";
+        String filePath = "src/main/java/com/amaap/merchentguide/resources/inputData.txt";
         String expectedMetal = "Silver";
         long expectedCredits = 17;
 
@@ -68,7 +68,7 @@ class GalaxyServiceTest {
     @Test
     void shouldBeAbleToReadFileAndInsertQueryIntoDatabase() {
         // arrange
-        String filePath = "G://Amaap//MerchentGuide//MerchantGuide//src//main//java//com//amaap//merchentguide//resources//inputData.txt";
+        String filePath = "src/main/java/com/amaap/merchentguide/resources/inputData.txt";
         List<QueryDto> expected = QueryBuilder.getAllQueries();
 
         // act

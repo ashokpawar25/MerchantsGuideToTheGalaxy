@@ -27,7 +27,7 @@ public class GalaxyControllerTest {
     void shouldBeAbleToReadAndProcessFileData()
     {
         // arrange
-        String filePath = "G://Amaap//MerchentGuide//MerchantGuide//src//main//java//com//amaap//merchentguide//resources//inputData.txt";
+        String filePath = "src/main/java/com/amaap/merchentguide/resources/inputData.txt";
 
         // act
         boolean isReadable = galaxyController.readFile(filePath);

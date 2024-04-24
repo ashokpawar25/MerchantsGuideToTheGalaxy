@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class InputValidator {
     public static boolean unitValidator(String line) throws IOException {
+        line = line.replaceAll("\\s+", " ");
         String[] lineData = line.split(" ");
         String unit = lineData[2].toUpperCase();
         for (RomanNumbers romanNumber : RomanNumbers.values()) {
@@ -22,6 +23,7 @@ public class InputValidator {
     }
 
     public static boolean metalCreditsValidator(String line) throws IOException {
+        line = line.replaceAll("\\s+", " ");
         Yaml yaml = new Yaml();
         FileInputStream inputStream = new FileInputStream("src/main/java/com/amaap/merchentguide/resources/validData.yml");
         Map<String, List<String>> yamlData = yaml.load(inputStream);
