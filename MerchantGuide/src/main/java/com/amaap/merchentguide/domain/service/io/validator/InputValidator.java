@@ -23,7 +23,7 @@ public class InputValidator {
 
     public static boolean metalCreditsValidator(String line) throws IOException {
         Yaml yaml = new Yaml();
-        FileInputStream inputStream = new FileInputStream("G://Amaap//MerchentGuide//MerchantGuide//src//main//java//com//amaap//merchentguide//resources//validMetals.yml");
+        FileInputStream inputStream = new FileInputStream("src/main/java/com/amaap/merchentguide/resources/validData.yml");
         Map<String, List<String>> yamlData = yaml.load(inputStream);
         inputStream.close();
         List<String> validMetals = yamlData.get("validMetals");

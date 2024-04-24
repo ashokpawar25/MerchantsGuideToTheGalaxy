@@ -2,15 +2,20 @@ package com.amaap.merchentguide.service;
 
 import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
 import com.amaap.merchentguide.domain.model.entity.Metal;
+import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
+import com.amaap.merchentguide.domain.model.valueobject.builder.QueryBuilder;
 import com.amaap.merchentguide.repository.db.impl.FakeInMemoryDatabase;
 import com.amaap.merchentguide.repository.impl.InMemoryIntergalacticTransactionUnitRepository;
 import com.amaap.merchentguide.repository.impl.InMemoryMetalRepository;
+import com.amaap.merchentguide.repository.impl.InMemoryQueryRepository;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class IOServiceTest {
+class GalaxyServiceTest {
 
     IntergalacticTransactionUnitService intergalacticTransactionUnitService =
             new IntergalacticTransactionUnitService(
@@ -19,7 +24,9 @@ class IOServiceTest {
 
     MetalService metalService = new MetalService(new InMemoryMetalRepository(new FakeInMemoryDatabase()));
 
-    GalaxyService ioService = new GalaxyService(intergalacticTransactionUnitService,metalService);
+    QueryService queryService = new QueryService(new InMemoryQueryRepository(new FakeInMemoryDatabase()));
+
+    GalaxyService galaxyService = new GalaxyService(intergalacticTransactionUnitService,metalService,queryService);
 
     @Test
     void shouldBeAbleToReadFileAndInsertIntergalacticUnitIntoDatabase() {
@@ -28,7 +35,7 @@ class IOServiceTest {
         String expectedUnit = "I";
 
         // act
-        boolean isReadable = ioService.readFile(filePath);
+        boolean isReadable = galaxyService.readFile(filePath);
         IntergalacticTransactionUnit unit = intergalacticTransactionUnitService.get("glob");
         String actualUnit = unit.getRomanValue();
 
@@ -47,7 +54,7 @@ class IOServiceTest {
 
 
         // act
-        boolean isReadable = ioService.readFile(filePath);
+        boolean isReadable = galaxyService.readFile(filePath);
         Metal metal = metalService.getMetal("Silver");
         String actualMetal = metal.getName();
         long actualCredits = metal.getCredits();
@@ -56,5 +63,20 @@ class IOServiceTest {
         assertTrue(isReadable);
         assertEquals(expectedMetal,actualMetal);
         assertEquals(expectedCredits,actualCredits);
+    }
+
+    @Test
+    void shouldBeAbleToReadFileAndInsertQueryIntoDatabase() {
+        // arrange
+        String filePath = "G://Amaap//MerchentGuide//MerchantGuide//src//main//java//com//amaap//merchentguide//resources//inputData.txt";
+        List<QueryDto> expected = QueryBuilder.getAllQueries();
+
+        // act
+        boolean isReadable = galaxyService.readFile(filePath);
+        List<QueryDto> actual = queryService.getAllQueries();
+
+        // assert
+        assertTrue(isReadable);
+        assertEquals(expected,actual);
     }
 }

@@ -27,6 +27,18 @@ public class QueryDto {
         return new QueryDto(id,queryType,queryContent);
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public QueryType getQueryType() {
+        return queryType;
+    }
+
+    public String getQueryContent() {
+        return queryContent;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
