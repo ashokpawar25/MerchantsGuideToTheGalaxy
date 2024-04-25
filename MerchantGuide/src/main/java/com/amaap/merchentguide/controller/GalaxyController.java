@@ -11,4 +11,8 @@ public class GalaxyController {
     public boolean readFile(String filePath) {
         return galaxyService.readFile(filePath);
     }
+
+    public String processQueries() {
+        return galaxyService.processQueries();
+    }
 }

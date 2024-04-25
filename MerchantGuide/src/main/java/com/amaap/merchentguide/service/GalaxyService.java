@@ -5,6 +5,7 @@ import com.amaap.merchentguide.domain.model.dto.MetalDto;
 import com.amaap.merchentguide.domain.model.dto.QueryParserDto;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
+import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
 import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDataException;
 import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
 import com.amaap.merchentguide.domain.service.io.parser.InputParser;
@@ -62,5 +63,17 @@ public class GalaxyService {
             throw new RuntimeException(e);
         }
         return true;
+    }
+
+    public String processQueries() {
+        List<QueryDto> queries = queryService.getAllQueries();
+        StringBuilder finalResult = new StringBuilder();
+        for(QueryDto query:queries)
+        {
+            QueryProcessor queryProcessor = ProcessorFactory.getProcessor(query.getQueryType());
+            String result = queryProcessor.processQuery(query.getQueryContent());
+            finalResult.append(result);
+        }
+        return finalResult.toString();
     }
 }

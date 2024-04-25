@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.amaap.merchentguide.domain.model.valueobject.builder.QueryBuilder.getAllQueries;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -69,7 +70,7 @@ class GalaxyServiceTest {
     void shouldBeAbleToReadFileAndInsertQueryIntoDatabase() {
         // arrange
         String filePath = "src/main/java/com/amaap/merchentguide/resources/inputData.txt";
-        List<QueryDto> expected = QueryBuilder.getAllQueries();
+        List<QueryDto> expected = getAllQueries();
 
         // act
         boolean isReadable = galaxyService.readFile(filePath);
