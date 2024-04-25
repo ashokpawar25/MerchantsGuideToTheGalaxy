@@ -11,6 +11,7 @@ import com.amaap.merchentguide.domain.service.io.parser.InputParser;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
 import com.amaap.merchentguide.service.exception.InvalidInputFileDataException;
+import jakarta.inject.Inject;
 
 import java.io.*;
 import java.util.List;
@@ -24,6 +25,7 @@ public class GalaxyService {
     private final QueryService queryService;
     private final ProcessorFactory processorFactory;
 
+    @Inject
     public GalaxyService(IntergalacticUnitService intergalacticUnitService, MetalService metalService, QueryService queryService, ProcessorFactory processorFactory) {
         this.intergalacticUnitService = intergalacticUnitService;
         this.metalService = metalService;
