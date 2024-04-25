@@ -5,7 +5,7 @@ public class MetalValidator {
         return name == null || name.isEmpty() || !name.matches("\\b\\w+\\b");
     }
 
-    public static boolean isInvalidCredits(long credits) {
+    public static boolean isInvalidCredits(double credits) {
         return credits <= 0;
     }
 }

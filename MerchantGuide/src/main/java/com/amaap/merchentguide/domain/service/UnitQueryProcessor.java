@@ -1,15 +1,15 @@
 package com.amaap.merchentguide.domain.service;
 
-import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
+import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
 import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
-import com.amaap.merchentguide.service.IntergalacticTransactionUnitService;
+import com.amaap.merchentguide.service.IntergalacticUnitService;
 import com.amaap.merchentguide.service.QueryProcessor;
 
 import static com.amaap.merchentguide.domain.service.UnitConverter.romanToDecimalConverter;
 
 public class UnitQueryProcessor implements QueryProcessor {
-    IntergalacticTransactionUnitService unitService;
-    public UnitQueryProcessor(IntergalacticTransactionUnitService unitService) {
+    IntergalacticUnitService unitService;
+    public UnitQueryProcessor(IntergalacticUnitService unitService) {
         this.unitService = unitService;
     }
 
@@ -21,7 +21,7 @@ public class UnitQueryProcessor implements QueryProcessor {
         StringBuilder answer = new StringBuilder();
         for (int i=0;i<units.length-1;i++)
         {
-            IntergalacticTransactionUnit intergalacticUnit = unitService.get(units[i]);
+            IntergalacticUnit intergalacticUnit = unitService.get(units[i]);
             romanValue.append(intergalacticUnit.getRomanValue());
             answer.append(units[i]).append(" ");
         }

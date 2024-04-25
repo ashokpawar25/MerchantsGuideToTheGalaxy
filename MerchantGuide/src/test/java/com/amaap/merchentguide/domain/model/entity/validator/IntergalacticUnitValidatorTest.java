@@ -6,7 +6,7 @@ import static com.amaap.merchentguide.domain.model.entity.validator.Intergalacti
 import static com.amaap.merchentguide.domain.model.entity.validator.IntergalacticTransactionUnitValidator.isInvalidRomanValue;
 import static org.junit.jupiter.api.Assertions.*;
 
-class IntergalacticTransactionUnitValidatorTest {
+class IntergalacticUnitValidatorTest {
 
     @Test
     void shouldBeAbleToValidateValidIntergalacticUnit()

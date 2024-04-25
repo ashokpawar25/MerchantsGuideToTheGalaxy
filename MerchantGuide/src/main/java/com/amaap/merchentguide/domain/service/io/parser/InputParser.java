@@ -3,13 +3,11 @@ package com.amaap.merchentguide.domain.service.io.parser;
 import com.amaap.merchentguide.domain.model.dto.IntergalacticUnitDto;
 import com.amaap.merchentguide.domain.model.dto.MetalDto;
 import com.amaap.merchentguide.domain.model.dto.QueryParserDto;
-import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
-import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
+import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
 import com.amaap.merchentguide.domain.model.valueobject.QueryType;
 import com.amaap.merchentguide.domain.model.valueobject.RomanNumbers;
-import com.amaap.merchentguide.domain.service.UnitConverter;
 import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
-import com.amaap.merchentguide.service.IntergalacticTransactionUnitService;
+import com.amaap.merchentguide.service.IntergalacticUnitService;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
@@ -30,7 +28,7 @@ public class InputParser {
         return new IntergalacticUnitDto(interGalacticUnit,romanValue,actualValue);
     }
 
-    public static MetalDto parseMetal(String line, IntergalacticTransactionUnitService intergalacticUnitService) throws IOException, InvalidRomanValueException {
+    public static MetalDto parseMetal(String line, IntergalacticUnitService intergalacticUnitService) throws IOException, InvalidRomanValueException {
         line = line.replaceAll("\\s+", " ");
         Yaml yaml = new Yaml();
         FileInputStream inputStream = new FileInputStream("src/main/java/com/amaap/merchentguide/resources/validData.yml");
@@ -49,12 +47,12 @@ public class InputParser {
         }
         for(int i = 0;i< lineData.length-4;i++)
         {
-            IntergalacticTransactionUnit intergalacticUnit = intergalacticUnitService.get(lineData[i]);
+            IntergalacticUnit intergalacticUnit = intergalacticUnitService.get(lineData[i]);
             romanValue.append(intergalacticUnit.getRomanValue());
         }
         long totalUnits = romanToDecimalConverter(romanValue.toString());
-        long totalCredits = Long.parseLong(lineData[lineData.length-2]);
-        long creditsForSingleUnit = totalCredits/totalUnits;
+        double totalCredits = Long.parseLong(lineData[lineData.length-2]);
+        double creditsForSingleUnit = totalCredits/totalUnits;
         return new MetalDto(metal,creditsForSingleUnit);
     }
 

@@ -1,25 +1,25 @@
 package com.amaap.merchentguide.controller;
 
-import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
+import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
 import com.amaap.merchentguide.controller.dto.HttpStatus;
 import com.amaap.merchentguide.controller.dto.Response;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
-import com.amaap.merchentguide.service.IntergalacticTransactionUnitService;
+import com.amaap.merchentguide.service.IntergalacticUnitService;
 
-public class IntergalacticTransactionUnitController {
+public class IntergalacticUnitController {
 
-    IntergalacticTransactionUnitService intergalacticTransactionUnitService;
+    IntergalacticUnitService intergalacticUnitService;
 
-    public IntergalacticTransactionUnitController(IntergalacticTransactionUnitService intergalacticTransactionUnitService) {
-        this.intergalacticTransactionUnitService = intergalacticTransactionUnitService;
+    public IntergalacticUnitController(IntergalacticUnitService intergalacticUnitService) {
+        this.intergalacticUnitService = intergalacticUnitService;
     }
 
 
     public Response create(String intergalacticValue, String romanValue, int actualValue) throws InvalidIntergalacticTransactionUnitDataException {
         try
         {
-            intergalacticTransactionUnitService.create(intergalacticValue,romanValue,actualValue);
+            intergalacticUnitService.create(intergalacticValue,romanValue,actualValue);
             return new Response(HttpStatus.OK,"Intergalactic unit created");
         }
         catch (InvalidIntergalacticTransactionUnitDataException exception)
@@ -30,8 +30,8 @@ public class IntergalacticTransactionUnitController {
         }
     }
 
-    public IntergalacticTransactionUnit get(String intergalacticValue) {
-        return intergalacticTransactionUnitService.get(intergalacticValue);
+    public IntergalacticUnit get(String intergalacticValue) {
+        return intergalacticUnitService.get(intergalacticValue);
     }
 }
 

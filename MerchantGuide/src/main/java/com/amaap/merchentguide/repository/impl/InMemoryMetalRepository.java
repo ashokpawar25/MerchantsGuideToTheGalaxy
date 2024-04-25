@@ -13,7 +13,7 @@ public class InMemoryMetalRepository implements MetalRepository {
     }
 
     @Override
-    public Metal add(String name, long credits) throws MetalAlreadyExistException, InvalidMetalDataException {
+    public Metal add(String name, double credits) throws MetalAlreadyExistException, InvalidMetalDataException {
         return inMemoryDatabase.InsertIntoMetalTable(name,credits);
     }
 

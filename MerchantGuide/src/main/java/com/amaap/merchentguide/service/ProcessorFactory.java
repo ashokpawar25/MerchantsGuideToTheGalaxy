@@ -6,11 +6,18 @@ import com.amaap.merchentguide.domain.service.MetalQueryProcessor;
 import com.amaap.merchentguide.domain.service.UnitQueryProcessor;
 
 public class ProcessorFactory {
-    public static QueryProcessor getProcessor(QueryType queryType, IntergalacticTransactionUnitService unitService, MetalService metalService) {
+    IntergalacticUnitService intergalacticUnitService;
+    MetalService metalService;
+    public ProcessorFactory(IntergalacticUnitService intergalacticUnitService, MetalService metalService) {
+        this.intergalacticUnitService = intergalacticUnitService;
+        this.metalService = metalService;
+    }
+
+    public QueryProcessor getProcessor(QueryType queryType) {
         if(queryType.equals(QueryType.UNIT_QUERY))
-            return new UnitQueryProcessor(unitService);
+            return new UnitQueryProcessor(intergalacticUnitService);
         else if(queryType.equals(QueryType.METAL_QUERY))
-            return new MetalQueryProcessor();
+            return new MetalQueryProcessor(metalService,intergalacticUnitService);
         else
             return new InvalidQueryProcessor();
     }

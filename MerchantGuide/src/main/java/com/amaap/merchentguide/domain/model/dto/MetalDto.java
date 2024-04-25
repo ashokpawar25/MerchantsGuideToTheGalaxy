@@ -2,8 +2,8 @@ package com.amaap.merchentguide.domain.model.dto;
 
 public class MetalDto {
     public String metal;
-    public long credits;
-    public MetalDto(String metal, long credits) {
+    public double credits;
+    public MetalDto(String metal, double credits) {
         this.metal = metal;
         this.credits = credits;
     }

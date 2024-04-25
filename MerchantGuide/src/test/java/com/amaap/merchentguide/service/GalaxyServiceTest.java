@@ -1,11 +1,10 @@
 package com.amaap.merchentguide.service;
 
-import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
+import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
 import com.amaap.merchentguide.domain.model.entity.Metal;
 import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
-import com.amaap.merchentguide.domain.model.valueobject.builder.QueryBuilder;
 import com.amaap.merchentguide.repository.db.impl.FakeInMemoryDatabase;
-import com.amaap.merchentguide.repository.impl.InMemoryIntergalacticTransactionUnitRepository;
+import com.amaap.merchentguide.repository.impl.InMemoryIntergalacticUnitRepository;
 import com.amaap.merchentguide.repository.impl.InMemoryMetalRepository;
 import com.amaap.merchentguide.repository.impl.InMemoryQueryRepository;
 import org.junit.jupiter.api.Test;
@@ -18,16 +17,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GalaxyServiceTest {
 
-    IntergalacticTransactionUnitService intergalacticTransactionUnitService =
-            new IntergalacticTransactionUnitService(
-                    new InMemoryIntergalacticTransactionUnitRepository(
+    IntergalacticUnitService intergalacticUnitService =
+            new IntergalacticUnitService(
+                    new InMemoryIntergalacticUnitRepository(
                             new FakeInMemoryDatabase()));
 
     MetalService metalService = new MetalService(new InMemoryMetalRepository(new FakeInMemoryDatabase()));
 
     QueryService queryService = new QueryService(new InMemoryQueryRepository(new FakeInMemoryDatabase()));
+    ProcessorFactory processorFactory = new ProcessorFactory(intergalacticUnitService,metalService);
 
-    GalaxyService galaxyService = new GalaxyService(intergalacticTransactionUnitService,metalService,queryService);
+    GalaxyService galaxyService = new GalaxyService(intergalacticUnitService,metalService,queryService, processorFactory);
 
     @Test
     void shouldBeAbleToReadFileAndInsertIntergalacticUnitIntoDatabase() {
@@ -37,7 +37,7 @@ class GalaxyServiceTest {
 
         // act
         boolean isReadable = galaxyService.readFile(filePath);
-        IntergalacticTransactionUnit unit = intergalacticTransactionUnitService.get("glob");
+        IntergalacticUnit unit = intergalacticUnitService.get("glob");
         String actualUnit = unit.getRomanValue();
 
         // assert
@@ -58,7 +58,7 @@ class GalaxyServiceTest {
         boolean isReadable = galaxyService.readFile(filePath);
         Metal metal = metalService.getMetal("Silver");
         String actualMetal = metal.getName();
-        long actualCredits = metal.getCredits();
+        double actualCredits = metal.getCredits();
 
         // assert
         assertTrue(isReadable);

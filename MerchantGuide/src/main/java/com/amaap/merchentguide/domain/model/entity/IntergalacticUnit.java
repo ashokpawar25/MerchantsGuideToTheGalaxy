@@ -9,20 +9,20 @@ import java.util.Objects;
 import static com.amaap.merchentguide.domain.model.entity.validator.IntergalacticTransactionUnitValidator.isInvalidIntergalacticValue;
 import static com.amaap.merchentguide.domain.model.entity.validator.IntergalacticTransactionUnitValidator.isInvalidRomanValue;
 
-public class IntergalacticTransactionUnit {
-    private String intergalacticValue;
-    private String romanValue;
-    private int actualValue;
-    public IntergalacticTransactionUnit(String intergalacticValue, String romanValue, int actualValue) {
+public class IntergalacticUnit {
+    private final String intergalacticValue;
+    private final String romanValue;
+    private final double actualValue;
+    public IntergalacticUnit(String intergalacticValue, String romanValue, double actualValue) {
         this.intergalacticValue = intergalacticValue;
         this.romanValue = romanValue;
         this.actualValue = actualValue;
     }
 
-    public static IntergalacticTransactionUnit create(String intergalacticValue, String romanValue, int actualValue) throws InvalidIntergalacticTransactionUnitDataException {
+    public static IntergalacticUnit create(String intergalacticValue, String romanValue, int actualValue) throws InvalidIntergalacticTransactionUnitDataException {
         if(isInvalidIntergalacticValue(intergalacticValue)) throw new InvalidIntergalacticTransactionUnitValueException("Invalid intergalactic value "+ intergalacticValue);
         if(isInvalidRomanValue(romanValue)) throw new InvalidRomanValueExceptionTransactionUnit("Invalid Roman value "+romanValue);
-        return new IntergalacticTransactionUnit(intergalacticValue,romanValue,actualValue);
+        return new IntergalacticUnit(intergalacticValue,romanValue,actualValue);
     }
 
     public String getIntergalacticValue() {
@@ -33,7 +33,7 @@ public class IntergalacticTransactionUnit {
         return romanValue;
     }
 
-    public int getActualValue() {
+    public double getActualValue() {
         return actualValue;
     }
 
@@ -41,7 +41,7 @@ public class IntergalacticTransactionUnit {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        IntergalacticTransactionUnit that = (IntergalacticTransactionUnit) o;
+        IntergalacticUnit that = (IntergalacticUnit) o;
         return actualValue == that.actualValue && Objects.equals(intergalacticValue, that.intergalacticValue) && Objects.equals(romanValue, that.romanValue);
     }
 

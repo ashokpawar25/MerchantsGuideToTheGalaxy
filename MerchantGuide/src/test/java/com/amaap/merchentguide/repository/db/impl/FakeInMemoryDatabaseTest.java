@@ -1,12 +1,11 @@
 package com.amaap.merchentguide.repository.db.impl;
 
-import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
+import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
 import com.amaap.merchentguide.domain.model.entity.Metal;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
 import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
 import com.amaap.merchentguide.domain.model.valueobject.QueryType;
-import com.amaap.merchentguide.domain.model.valueobject.builder.QueryBuilder;
 import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDataException;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
@@ -25,10 +24,10 @@ class FakeInMemoryDatabaseTest {
         String intergalacticValue = "glob";
         String romanValue = "I";
         int actualValue = 1;
-        IntergalacticTransactionUnit expected = new IntergalacticTransactionUnit(intergalacticValue,romanValue,actualValue);
+        IntergalacticUnit expected = new IntergalacticUnit(intergalacticValue,romanValue,actualValue);
 
         // act
-        IntergalacticTransactionUnit actual = fakeInMemoryDatabase.InsertIntoIntergalacticTransactionUnitTable(intergalacticValue,romanValue,actualValue);
+        IntergalacticUnit actual = fakeInMemoryDatabase.InsertIntoIntergalacticUnitTable(intergalacticValue,romanValue,actualValue);
 
         // assert
         assertEquals(expected,actual);
@@ -40,11 +39,11 @@ class FakeInMemoryDatabaseTest {
         String intergalacticValue = "glob";
         String romanValue = "I";
         int actualValue = 1;
-        IntergalacticTransactionUnit expected = new IntergalacticTransactionUnit(intergalacticValue,romanValue,actualValue);
+        IntergalacticUnit expected = new IntergalacticUnit(intergalacticValue,romanValue,actualValue);
 
         // act
-        fakeInMemoryDatabase.InsertIntoIntergalacticTransactionUnitTable(intergalacticValue,romanValue,actualValue);
-        IntergalacticTransactionUnit actual = fakeInMemoryDatabase.selectFromIntergalacticTransactionUnitTable(intergalacticValue);
+        fakeInMemoryDatabase.InsertIntoIntergalacticUnitTable(intergalacticValue,romanValue,actualValue);
+        IntergalacticUnit actual = fakeInMemoryDatabase.selectFromIntergalacticUnitTable(intergalacticValue);
 
         // assert
         assertEquals(expected,actual);

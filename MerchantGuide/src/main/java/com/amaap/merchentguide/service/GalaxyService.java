@@ -14,21 +14,22 @@ import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistExc
 import com.amaap.merchentguide.service.exception.InvalidInputFileDataException;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.amaap.merchentguide.domain.service.io.validator.InputValidator.metalCreditsValidator;
 import static com.amaap.merchentguide.domain.service.io.validator.InputValidator.unitValidator;
 
 public class GalaxyService {
-    private final IntergalacticTransactionUnitService intergalacticUnitService;
+    private final IntergalacticUnitService intergalacticUnitService;
     private final MetalService metalService;
     private final QueryService queryService;
+    private ProcessorFactory processorFactory;
 
-    public GalaxyService(IntergalacticTransactionUnitService intergalacticTransactionUnitService, MetalService metalService, QueryService queryService) {
-        this.intergalacticUnitService = intergalacticTransactionUnitService;
+    public GalaxyService(IntergalacticUnitService intergalacticUnitService, MetalService metalService, QueryService queryService, ProcessorFactory processorFactory) {
+        this.intergalacticUnitService = intergalacticUnitService;
         this.metalService = metalService;
         this.queryService = queryService;
+        this.processorFactory = processorFactory;
     }
 
     public boolean readFile(String filePath) {
@@ -70,7 +71,7 @@ public class GalaxyService {
         StringBuilder finalResult = new StringBuilder();
         for(QueryDto query:queries)
         {
-            QueryProcessor queryProcessor = ProcessorFactory.getProcessor(query.getQueryType(),intergalacticUnitService,metalService);
+            QueryProcessor queryProcessor = processorFactory.getProcessor(query.getQueryType());
             String result = queryProcessor.processQuery(query.getQueryContent());
             finalResult.append("\n").append(result);
         }

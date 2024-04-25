@@ -5,6 +5,6 @@ import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataExc
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
 
 public interface MetalRepository {
-    Metal add(String name, long credits) throws MetalAlreadyExistException, InvalidMetalDataException;
+    Metal add(String name, double credits) throws MetalAlreadyExistException, InvalidMetalDataException;
     Metal selectFromMetalTable(String name);
 }

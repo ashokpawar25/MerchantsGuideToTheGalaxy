@@ -11,7 +11,7 @@ public class MetalService {
         this.metalRepository = metalRepository;
     }
 
-    public Metal create(String name, long credits) throws MetalAlreadyExistException, InvalidMetalDataException {
+    public Metal create(String name, double credits) throws MetalAlreadyExistException, InvalidMetalDataException {
         return metalRepository.add(name,credits);
     }
 

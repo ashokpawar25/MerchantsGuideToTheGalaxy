@@ -2,27 +2,25 @@ package com.amaap.merchentguide.controller;
 
 import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
 import com.amaap.merchentguide.repository.db.impl.FakeInMemoryDatabase;
-import com.amaap.merchentguide.repository.impl.InMemoryIntergalacticTransactionUnitRepository;
+import com.amaap.merchentguide.repository.impl.InMemoryIntergalacticUnitRepository;
 import com.amaap.merchentguide.repository.impl.InMemoryMetalRepository;
 import com.amaap.merchentguide.repository.impl.InMemoryQueryRepository;
-import com.amaap.merchentguide.service.GalaxyService;
-import com.amaap.merchentguide.service.IntergalacticTransactionUnitService;
-import com.amaap.merchentguide.service.MetalService;
-import com.amaap.merchentguide.service.QueryService;
+import com.amaap.merchentguide.service.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GalaxyControllerTest {
-    IntergalacticTransactionUnitService intergalacticTransactionUnitService =
-            new IntergalacticTransactionUnitService(
-                    new InMemoryIntergalacticTransactionUnitRepository(
+    IntergalacticUnitService intergalacticUnitService =
+            new IntergalacticUnitService(
+                    new InMemoryIntergalacticUnitRepository(
                             new FakeInMemoryDatabase()));
 
     MetalService metalService = new MetalService(new InMemoryMetalRepository(new FakeInMemoryDatabase()));
     QueryService queryService = new QueryService(new InMemoryQueryRepository(new FakeInMemoryDatabase()));
-    GalaxyService galaxyService = new GalaxyService(intergalacticTransactionUnitService,metalService, queryService);
+    ProcessorFactory processorFactory = new ProcessorFactory(intergalacticUnitService,metalService);
+    GalaxyService galaxyService = new GalaxyService(intergalacticUnitService,metalService, queryService,processorFactory);
     GalaxyController galaxyController = new GalaxyController(galaxyService);
 
     @Test
@@ -42,7 +40,7 @@ public class GalaxyControllerTest {
     void shouldBeAbleToProcessQueryAndReturnResult() throws InvalidRomanValueException {
         // arrange
         String filePath = "src/main/java/com/amaap/merchentguide/resources/inputData.txt";
-        String expected = "pish tegj glob glob is 42\n" +
+        String expected = "\npish tegj glob glob is 42\n" +
                 "glob prok Silver is 68 Credits\n" +
                 "glob prok Gold is 57800 Credits\n" +
                 "glob prok Iron is 782 Credits\n" +

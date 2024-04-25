@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class IntergalacticTransactionUnitTest {
+class IntergalacticUnitTest {
 
     @Test
     void shouldBeAbleToCreateIntergalacticTransactionUnit() throws InvalidIntergalacticTransactionUnitDataException {
@@ -15,10 +15,10 @@ class IntergalacticTransactionUnitTest {
         String intergalacticValue = "glob";
         String romanValue = "I";
         int actualValue = 1;
-        IntergalacticTransactionUnit expected = new IntergalacticTransactionUnit(intergalacticValue,romanValue,actualValue);
+        IntergalacticUnit expected = new IntergalacticUnit(intergalacticValue,romanValue,actualValue);
 
         // act
-        IntergalacticTransactionUnit actual = IntergalacticTransactionUnit.create(intergalacticValue,romanValue,actualValue);
+        IntergalacticUnit actual = IntergalacticUnit.create(intergalacticValue,romanValue,actualValue);
 
         // assert
         assertEquals(expected,actual);
@@ -27,8 +27,8 @@ class IntergalacticTransactionUnitTest {
     @Test
     void shouldBeAbleToThrowExceptionWhenInvalidDataIsProvided()
     {
-        assertThrows(InvalidIntergalacticTransactionUnitValueException.class,()->IntergalacticTransactionUnit.create("","I",1));
-        assertThrows(InvalidRomanValueExceptionTransactionUnit.class,()->IntergalacticTransactionUnit.create("glob",null,1));
+        assertThrows(InvalidIntergalacticTransactionUnitValueException.class,()-> IntergalacticUnit.create("","I",1));
+        assertThrows(InvalidRomanValueExceptionTransactionUnit.class,()-> IntergalacticUnit.create("glob",null,1));
     }
 
 }

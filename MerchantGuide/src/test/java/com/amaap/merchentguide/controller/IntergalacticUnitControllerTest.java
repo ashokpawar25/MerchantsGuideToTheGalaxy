@@ -1,25 +1,25 @@
 package com.amaap.merchentguide.controller;
 
-import com.amaap.merchentguide.domain.model.entity.IntergalacticTransactionUnit;
+import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
 import com.amaap.merchentguide.controller.dto.HttpStatus;
 import com.amaap.merchentguide.controller.dto.Response;
-import com.amaap.merchentguide.repository.IntergalacticTransactionUnitRepository;
+import com.amaap.merchentguide.repository.IntergalacticUnitRepository;
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
 import com.amaap.merchentguide.repository.db.impl.FakeInMemoryDatabase;
-import com.amaap.merchentguide.repository.impl.InMemoryIntergalacticTransactionUnitRepository;
-import com.amaap.merchentguide.service.IntergalacticTransactionUnitService;
+import com.amaap.merchentguide.repository.impl.InMemoryIntergalacticUnitRepository;
+import com.amaap.merchentguide.service.IntergalacticUnitService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class IntergalacticTransactionUnitControllerTest {
+public class IntergalacticUnitControllerTest {
     InMemoryDatabase inMemoryDatabase = new FakeInMemoryDatabase();
-    IntergalacticTransactionUnitRepository intergalacticTransactionUnitRepository = new InMemoryIntergalacticTransactionUnitRepository(inMemoryDatabase);
-    IntergalacticTransactionUnitService intergalacticTransactionUnitService = new IntergalacticTransactionUnitService(intergalacticTransactionUnitRepository);
+    IntergalacticUnitRepository intergalacticUnitRepository = new InMemoryIntergalacticUnitRepository(inMemoryDatabase);
+    IntergalacticUnitService intergalacticUnitService = new IntergalacticUnitService(intergalacticUnitRepository);
 
-    IntergalacticTransactionUnitController intergalacticTransactionUnitController = new IntergalacticTransactionUnitController(intergalacticTransactionUnitService);
+    IntergalacticUnitController intergalacticUnitController = new IntergalacticUnitController(intergalacticUnitService);
     @Test
     void shouldBeAbleToGetOkResponseWhenCreateIntergalacticTransactionUnit() throws InvalidIntergalacticTransactionUnitDataException {
         // arrange
@@ -29,7 +29,7 @@ public class IntergalacticTransactionUnitControllerTest {
         Response expected = new Response(HttpStatus.OK,"Intergalactic unit created");
 
         // act
-        Response actual = intergalacticTransactionUnitController.create(intergalacticValue,romanValue,actualValue);
+        Response actual = intergalacticUnitController.create(intergalacticValue,romanValue,actualValue);
 
         // assert
         assertEquals(expected,actual);
@@ -38,11 +38,11 @@ public class IntergalacticTransactionUnitControllerTest {
     @Test
     void shouldBeAbleToGetBadRequestAsResponseWhenTryToCreateDuplicateIntergalacticUnit() throws InvalidIntergalacticTransactionUnitDataException {
         // arrange
-        intergalacticTransactionUnitController.create("glob","I",1);
+        intergalacticUnitController.create("glob","I",1);
         Response expected = new Response(HttpStatus.CONFLICT,"glob unit is already present");
 
         // act
-        Response actual = intergalacticTransactionUnitController.create("glob","V",5);
+        Response actual = intergalacticUnitController.create("glob","V",5);
 
         // assert
         assertEquals(expected,actual);
@@ -54,11 +54,11 @@ public class IntergalacticTransactionUnitControllerTest {
         String intergalacticValue = "glob";
         String romanValue = "I";
         int actualValue = 1;
-        IntergalacticTransactionUnit expected = new IntergalacticTransactionUnit(intergalacticValue,romanValue,actualValue);
+        IntergalacticUnit expected = new IntergalacticUnit(intergalacticValue,romanValue,actualValue);
 
         // act
-        intergalacticTransactionUnitController.create(intergalacticValue,romanValue,actualValue);
-        IntergalacticTransactionUnit actual = intergalacticTransactionUnitController.get(intergalacticValue);
+        intergalacticUnitController.create(intergalacticValue,romanValue,actualValue);
+        IntergalacticUnit actual = intergalacticUnitController.get(intergalacticValue);
 
         // assert
         assertEquals(expected,actual);
