@@ -1,13 +1,13 @@
 package com.amaap.merchentguide.domain.model.entity;
 
-import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
-import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitValueException;
-import com.amaap.merchentguide.domain.model.entity.exception.InvalidRomanValueExceptionTransactionUnit;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticUnitDataException;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticUnitValueException;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidRomanValueExceptionUnit;
 
 import java.util.Objects;
 
-import static com.amaap.merchentguide.domain.model.entity.validator.IntergalacticTransactionUnitValidator.isInvalidIntergalacticValue;
-import static com.amaap.merchentguide.domain.model.entity.validator.IntergalacticTransactionUnitValidator.isInvalidRomanValue;
+import static com.amaap.merchentguide.domain.model.entity.validator.IntergalacticUnitValidator.isInvalidIntergalacticValue;
+import static com.amaap.merchentguide.domain.model.entity.validator.IntergalacticUnitValidator.isInvalidRomanValue;
 
 public class IntergalacticUnit {
     private final String intergalacticValue;
@@ -19,9 +19,9 @@ public class IntergalacticUnit {
         this.actualValue = actualValue;
     }
 
-    public static IntergalacticUnit create(String intergalacticValue, String romanValue, int actualValue) throws InvalidIntergalacticTransactionUnitDataException {
-        if(isInvalidIntergalacticValue(intergalacticValue)) throw new InvalidIntergalacticTransactionUnitValueException("Invalid intergalactic value "+ intergalacticValue);
-        if(isInvalidRomanValue(romanValue)) throw new InvalidRomanValueExceptionTransactionUnit("Invalid Roman value "+romanValue);
+    public static IntergalacticUnit create(String intergalacticValue, String romanValue, double actualValue) throws InvalidIntergalacticUnitDataException {
+        if(isInvalidIntergalacticValue(intergalacticValue)) throw new InvalidIntergalacticUnitValueException("Invalid intergalactic value "+ intergalacticValue);
+        if(isInvalidRomanValue(romanValue)) throw new InvalidRomanValueExceptionUnit("Invalid Roman value "+romanValue);
         return new IntergalacticUnit(intergalacticValue,romanValue,actualValue);
     }
 

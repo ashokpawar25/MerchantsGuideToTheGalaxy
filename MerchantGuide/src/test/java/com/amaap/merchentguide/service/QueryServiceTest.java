@@ -21,10 +21,9 @@ class QueryServiceTest {
     @Test
     void shouldBeAbleToCreateQuery() throws InvalidQueryDataException {
         // arrange
-        int id = 1;
         QueryType queryType = QueryType.UNIT_QUERY;
         String queryContent = "How much is glob prok ?";
-        QueryDto expected = new QueryDto(id,queryType,queryContent);
+        QueryDto expected = new QueryDto(queryType,queryContent);
 
         // act
         QueryDto actual = queryService.create(queryType,queryContent);

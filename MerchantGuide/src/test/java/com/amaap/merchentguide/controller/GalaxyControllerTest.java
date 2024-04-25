@@ -6,6 +6,7 @@ import com.amaap.merchentguide.repository.impl.InMemoryIntergalacticUnitReposito
 import com.amaap.merchentguide.repository.impl.InMemoryMetalRepository;
 import com.amaap.merchentguide.repository.impl.InMemoryQueryRepository;
 import com.amaap.merchentguide.service.*;
+import com.amaap.merchentguide.service.exception.InvalidInputFileDataException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,8 +25,7 @@ public class GalaxyControllerTest {
     GalaxyController galaxyController = new GalaxyController(galaxyService);
 
     @Test
-    void shouldBeAbleToReadAndProcessFileData()
-    {
+    void shouldBeAbleToReadAndProcessFileData() throws InvalidInputFileDataException {
         // arrange
         String filePath = "src/main/java/com/amaap/merchentguide/resources/inputData.txt";
 
@@ -37,7 +37,7 @@ public class GalaxyControllerTest {
     }
 
     @Test
-    void shouldBeAbleToProcessQueryAndReturnResult() throws InvalidRomanValueException {
+    void shouldBeAbleToProcessQueryAndReturnResult() throws InvalidRomanValueException, InvalidInputFileDataException {
         // arrange
         String filePath = "src/main/java/com/amaap/merchentguide/resources/inputData.txt";
         String expected = "\npish tegj glob glob is 42\n" +

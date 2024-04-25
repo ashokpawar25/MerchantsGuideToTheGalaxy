@@ -2,8 +2,8 @@ package com.amaap.merchentguide.domain.model.entity.validator;
 
 import org.junit.jupiter.api.Test;
 
-import static com.amaap.merchentguide.domain.model.entity.validator.IntergalacticTransactionUnitValidator.isInvalidIntergalacticValue;
-import static com.amaap.merchentguide.domain.model.entity.validator.IntergalacticTransactionUnitValidator.isInvalidRomanValue;
+import static com.amaap.merchentguide.domain.model.entity.validator.IntergalacticUnitValidator.isInvalidIntergalacticValue;
+import static com.amaap.merchentguide.domain.model.entity.validator.IntergalacticUnitValidator.isInvalidRomanValue;
 import static org.junit.jupiter.api.Assertions.*;
 
 class IntergalacticUnitValidatorTest {
@@ -56,6 +56,15 @@ class IntergalacticUnitValidatorTest {
         assertTrue(isInvalidRomanValue("I C"));
         assertTrue(isInvalidRomanValue(""));
         assertTrue(isInvalidRomanValue(null));
+    }
 
+    @Test
+    void shouldBeAbleToCreateInstanceOfClass()
+    {
+        // arrange & act
+        IntergalacticUnitValidator intergalacticUnitValidator = new IntergalacticUnitValidator();
+
+        // assert
+        assertNotNull(intergalacticUnitValidator);
     }
 }

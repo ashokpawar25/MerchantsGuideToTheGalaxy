@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class InputValidator {
-    public static boolean unitValidator(String line) throws IOException {
+    public static boolean unitValidator(String line){
         line = line.replaceAll("\\s+", " ");
         String[] lineData = line.split(" ");
         String unit = lineData[2].toUpperCase();

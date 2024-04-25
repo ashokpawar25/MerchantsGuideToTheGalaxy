@@ -7,6 +7,9 @@ import com.amaap.merchentguide.domain.model.entity.validator.MetalValidator;
 
 import java.util.Objects;
 
+import static com.amaap.merchentguide.domain.model.entity.validator.MetalValidator.isInvalidCredits;
+import static com.amaap.merchentguide.domain.model.entity.validator.MetalValidator.isInvalidMetalName;
+
 public class Metal {
     private final String name;
     private final double credits;
@@ -16,8 +19,8 @@ public class Metal {
     }
 
     public static Metal create(String name, double credits) throws InvalidMetalDataException {
-        if(MetalValidator.isInvalidMetalName(name)) throw new InvalidMetalNameException(name+" is invalid");
-        if(MetalValidator.isInvalidCredits(credits)) throw new InvalidCreditsException(credits+" are not valid");
+        if(isInvalidMetalName(name)) throw new InvalidMetalNameException(name+" is invalid");
+        if(isInvalidCredits(credits)) throw new InvalidCreditsException("Invalid credits : "+credits);
         return new Metal(name,credits);
     }
 

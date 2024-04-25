@@ -2,7 +2,7 @@ package com.amaap.merchentguide.repository.db.impl;
 
 import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
 import com.amaap.merchentguide.domain.model.entity.Metal;
-import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticUnitDataException;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
 import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
 import com.amaap.merchentguide.domain.model.valueobject.QueryType;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class FakeInMemoryDatabaseTest {
     FakeInMemoryDatabase fakeInMemoryDatabase = new FakeInMemoryDatabase();
     @Test
-    void shouldBeAbleToCreateIntergalacticTransactionUnit() throws InvalidIntergalacticTransactionUnitDataException, IntergalacticUnitAlreadyExistException {
+    void shouldBeAbleToCreateIntergalacticTransactionUnit() throws InvalidIntergalacticUnitDataException, IntergalacticUnitAlreadyExistException {
         // arrange
         String intergalacticValue = "glob";
         String romanValue = "I";
@@ -34,7 +34,7 @@ class FakeInMemoryDatabaseTest {
     }
 
     @Test
-    void shouldBeAbleToGetIntergalacticTransactionUnitByIntergalacticTransactionUnit() throws InvalidIntergalacticTransactionUnitDataException, IntergalacticUnitAlreadyExistException {
+    void shouldBeAbleToGetIntergalacticTransactionUnitByIntergalacticTransactionUnit() throws InvalidIntergalacticUnitDataException, IntergalacticUnitAlreadyExistException {
         // arrange
         String intergalacticValue = "glob";
         String romanValue = "I";
@@ -96,7 +96,7 @@ class FakeInMemoryDatabaseTest {
         int id = 1;
         QueryType queryType = QueryType.UNIT_QUERY;
         String queryContent = "How much is glob prok ?";
-        QueryDto expected = new QueryDto(1,queryType,queryContent);
+        QueryDto expected = new QueryDto(queryType,queryContent);
 
         // act
         QueryDto actual = fakeInMemoryDatabase.insertIntoQueryTable(queryType,queryContent);

@@ -1,6 +1,6 @@
 package com.amaap.merchentguide.domain.model.entity.validator;
 
-public class IntergalacticTransactionUnitValidator {
+public class IntergalacticUnitValidator {
     public static boolean isInvalidIntergalacticValue(String intergalacticValue) {
         return intergalacticValue == null || intergalacticValue.isEmpty() || !intergalacticValue.matches("\\b\\w+\\b");
     }

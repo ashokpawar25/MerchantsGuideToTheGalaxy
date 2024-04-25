@@ -3,7 +3,7 @@ package com.amaap.merchentguide.repository.db;
 import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
 import com.amaap.merchentguide.domain.model.entity.Metal;
 import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
-import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticUnitDataException;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
 import com.amaap.merchentguide.domain.model.valueobject.QueryType;
 import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDataException;
@@ -13,7 +13,7 @@ import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistExc
 import java.util.List;
 
 public interface InMemoryDatabase {
-    IntergalacticUnit InsertIntoIntergalacticUnitTable(String intergalacticValue, String romanValue, int actualValue) throws InvalidIntergalacticTransactionUnitDataException, IntergalacticUnitAlreadyExistException;
+    IntergalacticUnit InsertIntoIntergalacticUnitTable(String intergalacticValue, String romanValue, double actualValue) throws InvalidIntergalacticUnitDataException, IntergalacticUnitAlreadyExistException;
 
     IntergalacticUnit selectFromIntergalacticUnitTable(String intergalacticValue);
 

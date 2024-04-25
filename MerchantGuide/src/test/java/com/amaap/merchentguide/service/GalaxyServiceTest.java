@@ -3,17 +3,19 @@ package com.amaap.merchentguide.service;
 import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
 import com.amaap.merchentguide.domain.model.entity.Metal;
 import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
+import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
 import com.amaap.merchentguide.repository.db.impl.FakeInMemoryDatabase;
+import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
 import com.amaap.merchentguide.repository.impl.InMemoryIntergalacticUnitRepository;
 import com.amaap.merchentguide.repository.impl.InMemoryMetalRepository;
 import com.amaap.merchentguide.repository.impl.InMemoryQueryRepository;
+import com.amaap.merchentguide.service.exception.InvalidInputFileDataException;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static com.amaap.merchentguide.domain.model.valueobject.builder.QueryBuilder.getAllQueries;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class GalaxyServiceTest {
 
@@ -30,7 +32,7 @@ class GalaxyServiceTest {
     GalaxyService galaxyService = new GalaxyService(intergalacticUnitService,metalService,queryService, processorFactory);
 
     @Test
-    void shouldBeAbleToReadFileAndInsertIntergalacticUnitIntoDatabase() {
+    void shouldBeAbleToReadFileAndInsertIntergalacticUnitIntoDatabase() throws InvalidInputFileDataException {
         // arrange
         String filePath = "src/main/java/com/amaap/merchentguide/resources/inputData.txt";
         String expectedUnit = "I";
@@ -47,7 +49,7 @@ class GalaxyServiceTest {
     }
 
     @Test
-    void shouldBeAbleToReadFileAndInsertMetalIntoDatabase() {
+    void shouldBeAbleToReadFileAndInsertMetalIntoDatabase() throws InvalidInputFileDataException {
         // arrange
         String filePath = "src/main/java/com/amaap/merchentguide/resources/inputData.txt";
         String expectedMetal = "Silver";
@@ -67,7 +69,7 @@ class GalaxyServiceTest {
     }
 
     @Test
-    void shouldBeAbleToReadFileAndInsertQueryIntoDatabase() {
+    void shouldBeAbleToReadFileAndInsertQueryIntoDatabase() throws InvalidInputFileDataException {
         // arrange
         String filePath = "src/main/java/com/amaap/merchentguide/resources/inputData.txt";
         List<QueryDto> expected = getAllQueries();
@@ -80,4 +82,45 @@ class GalaxyServiceTest {
         assertTrue(isReadable);
         assertEquals(expected,actual);
     }
+
+    @Test
+    void shouldBeAbleToThrowExceptionWhenFileConsistInvalidData()
+    {
+        // arrange
+        String filePath = "src/main/java/com/amaap/merchentguide/resources/InvalidData.txt";
+
+        // act & assert
+        assertThrows(InvalidInputFileDataException.class,()->galaxyService.readFile(filePath));
+    }
+
+    @Test
+    void shouldBeAbleToReturnFalseWhenFileConsistDuplicateIntergalacticUnit() throws InvalidInputFileDataException {
+        // arrange
+        String filePath = "src/main/java/com/amaap/merchentguide/resources/duplicateUnitDataFile.txt";
+
+        // act
+        boolean isReadable = galaxyService.readFile(filePath);
+
+        // assert
+        assertFalse(isReadable);
+    }
+
+    @Test
+    void shouldBeAbleToProcessQueryAndReturnResult() throws InvalidRomanValueException, InvalidInputFileDataException {
+        // arrange
+        String filePath = "src/main/java/com/amaap/merchentguide/resources/inputData.txt";
+        String expected = "\npish tegj glob glob is 42\n" +
+                "glob prok Silver is 68 Credits\n" +
+                "glob prok Gold is 57800 Credits\n" +
+                "glob prok Iron is 782 Credits\n" +
+                "I have no idea what you are talking about";
+
+        // act
+        galaxyService.readFile(filePath);
+        String actual = galaxyService.processQueries();
+
+        // assert
+        assertEquals(expected,actual);
+    }
+
 }

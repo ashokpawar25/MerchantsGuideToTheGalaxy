@@ -21,7 +21,7 @@ public class MetalControllerTest {
     MetalController metalController = new MetalController(metalService);
 
     @Test
-    void shouldBeAbleToCreateMetal() throws MetalAlreadyExistException, InvalidMetalDataException {
+    void shouldBeAbleToGetOkResponseWhenMetalIsCreated() throws MetalAlreadyExistException, InvalidMetalDataException {
         // arrange
         String name = "Silver";
         long credits = 17;
@@ -29,6 +29,19 @@ public class MetalControllerTest {
 
         // act
         Response actual = metalController.create(name,credits);
+
+        // assert
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    void shouldBeAbleToGetBadRequestAsResponseWhenInvalidDataIsPassed()
+    {
+        // arrange
+        Response expected = new Response(HttpStatus.BADREQUEST, "Invalid credits : 0.0");
+
+        // act
+        Response actual = metalController.create("Silver",0);
 
         // assert
         assertEquals(expected,actual);

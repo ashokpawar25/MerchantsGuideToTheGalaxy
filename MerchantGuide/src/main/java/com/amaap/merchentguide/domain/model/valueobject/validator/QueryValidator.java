@@ -5,9 +5,6 @@ import com.amaap.merchentguide.domain.model.valueobject.QueryType;
 import java.util.EnumSet;
 
 public class QueryValidator {
-    public static boolean isValidId(int id) {
-        return id>0;
-    }
 
     public static boolean isValidQueryType(QueryType queryType) {
         for (QueryType type : QueryType.values()) {

@@ -30,4 +30,14 @@ class MetalValidatorTest {
         assertTrue(isInvalidMetalName(" Silver"));
         assertTrue(isInvalidMetalName("Silver Gold"));
     }
+
+    @Test
+    void shouldBeAbleToCreateInstanceOfClass()
+    {
+        // arrange & act
+        MetalValidator metalValidator = new MetalValidator();
+
+        // assert
+        assertNotNull(metalValidator);
+    }
 }

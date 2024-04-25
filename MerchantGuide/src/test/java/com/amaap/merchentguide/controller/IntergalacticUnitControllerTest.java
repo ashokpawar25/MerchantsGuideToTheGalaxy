@@ -1,7 +1,7 @@
 package com.amaap.merchentguide.controller;
 
 import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
-import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticUnitDataException;
 import com.amaap.merchentguide.controller.dto.HttpStatus;
 import com.amaap.merchentguide.controller.dto.Response;
 import com.amaap.merchentguide.repository.IntergalacticUnitRepository;
@@ -21,7 +21,7 @@ public class IntergalacticUnitControllerTest {
 
     IntergalacticUnitController intergalacticUnitController = new IntergalacticUnitController(intergalacticUnitService);
     @Test
-    void shouldBeAbleToGetOkResponseWhenCreateIntergalacticTransactionUnit() throws InvalidIntergalacticTransactionUnitDataException {
+    void shouldBeAbleToGetOkResponseWhenCreateIntergalacticTransactionUnit() throws InvalidIntergalacticUnitDataException {
         // arrange
         String intergalacticValue = "glob";
         String romanValue = "I";
@@ -36,12 +36,24 @@ public class IntergalacticUnitControllerTest {
     }
 
     @Test
-    void shouldBeAbleToGetBadRequestAsResponseWhenTryToCreateDuplicateIntergalacticUnit() throws InvalidIntergalacticTransactionUnitDataException {
+    void shouldBeAbleToGetBadRequestAsResponseWhenInvalidDataIsPassed() throws InvalidIntergalacticUnitDataException {
         // arrange
-        intergalacticUnitController.create("glob","I",1);
+        Response expected = new Response(HttpStatus.BADREQUEST,"Invalid Roman value S");
+
+        // act
+        Response actual = intergalacticUnitController.create("glob","S",5);
+
+        // assert
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    void shouldBeAbleToGetConflictResponseWhenTryToCreateDuplicateIntergalacticUnit() throws InvalidIntergalacticUnitDataException {
+        // arrange
         Response expected = new Response(HttpStatus.CONFLICT,"glob unit is already present");
 
         // act
+        intergalacticUnitController.create("glob","I",1);
         Response actual = intergalacticUnitController.create("glob","V",5);
 
         // assert
@@ -49,7 +61,7 @@ public class IntergalacticUnitControllerTest {
     }
 
     @Test
-    void shouldBeAbleToGetIntergalacticTransactionUnitByIntergalacticTransactionUnit() throws InvalidIntergalacticTransactionUnitDataException {
+    void shouldBeAbleToGetIntergalacticTransactionUnitByIntergalacticTransactionUnit() throws InvalidIntergalacticUnitDataException {
         // arrange
         String intergalacticValue = "glob";
         String romanValue = "I";

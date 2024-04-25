@@ -3,7 +3,7 @@ package com.amaap.merchentguide.repository.db.impl;
 import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
 import com.amaap.merchentguide.domain.model.entity.Metal;
 import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
-import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticUnitDataException;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
 import com.amaap.merchentguide.domain.model.valueobject.QueryType;
 import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDataException;
@@ -19,17 +19,16 @@ public class FakeInMemoryDatabase implements InMemoryDatabase {
     List<IntergalacticUnit> intergalacticUnits = new ArrayList<>();
     List<Metal> metals = new ArrayList<>();
     List<QueryDto> queries = new ArrayList<>();
-    private int queryIdCounter = 1;
 
     @Override
     public IntergalacticUnit InsertIntoIntergalacticUnitTable(
-            String intergalacticValue, String romanValue, int actualValue)
-            throws InvalidIntergalacticTransactionUnitDataException,
+            String intergalacticValue, String romanValue, double actualValue)
+            throws InvalidIntergalacticUnitDataException,
             IntergalacticUnitAlreadyExistException {
 
-        IntergalacticUnit intergalacticUnit = IntergalacticUnit.create(intergalacticValue,romanValue,actualValue);
         Optional<IntergalacticUnit> existence = intergalacticUnits.stream().filter(unit -> unit.getIntergalacticValue().equalsIgnoreCase(intergalacticValue)).findFirst();
         if(existence.isPresent()) throw new IntergalacticUnitAlreadyExistException(intergalacticValue+" unit is already present");
+        IntergalacticUnit intergalacticUnit = IntergalacticUnit.create(intergalacticValue,romanValue,actualValue);
         intergalacticUnits.add(intergalacticUnit);
         return intergalacticUnit;
 
@@ -60,7 +59,7 @@ public class FakeInMemoryDatabase implements InMemoryDatabase {
 
     @Override
     public QueryDto insertIntoQueryTable(QueryType queryType, String queryContent) throws InvalidQueryDataException {
-        QueryDto queryDto = QueryDto.create(queryIdCounter++,queryType,queryContent);
+        QueryDto queryDto = QueryDto.create(queryType,queryContent);
         queries.add(queryDto);
         return queryDto;
     }

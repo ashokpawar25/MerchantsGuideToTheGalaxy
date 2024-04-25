@@ -1,9 +1,8 @@
 package com.amaap.merchentguide.service;
 
-import com.amaap.merchentguide.domain.model.dto.IntergalacticUnitDto;
 import com.amaap.merchentguide.domain.model.dto.MetalDto;
-import com.amaap.merchentguide.domain.model.dto.QueryParserDto;
-import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
+import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticUnitDataException;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
 import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
 import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDataException;
@@ -23,7 +22,7 @@ public class GalaxyService {
     private final IntergalacticUnitService intergalacticUnitService;
     private final MetalService metalService;
     private final QueryService queryService;
-    private ProcessorFactory processorFactory;
+    private final ProcessorFactory processorFactory;
 
     public GalaxyService(IntergalacticUnitService intergalacticUnitService, MetalService metalService, QueryService queryService, ProcessorFactory processorFactory) {
         this.intergalacticUnitService = intergalacticUnitService;
@@ -32,15 +31,15 @@ public class GalaxyService {
         this.processorFactory = processorFactory;
     }
 
-    public boolean readFile(String filePath) {
+    public boolean readFile(String filePath) throws InvalidInputFileDataException {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if (line.matches("^([a-zA-Z]+)\\s+is\\s+([IVXLCDM])$")) {
                     boolean isValidUnit = unitValidator(line);
                     if (isValidUnit) {
-                        IntergalacticUnitDto parsedUnit = InputParser.parseUnit(line);
-                        intergalacticUnitService.create(parsedUnit.interGalacticValue, parsedUnit.romanValue, parsedUnit.actualValue);
+                        IntergalacticUnit parsedUnit = InputParser.parseUnit(line);
+                        intergalacticUnitService.create(parsedUnit.getIntergalacticValue(), parsedUnit.getRomanValue(), parsedUnit.getActualValue());
                     }
                 } else if (line.matches("^([a-zA-Z]+(?:\\s+[a-zA-Z]+)*)\\s+([a-zA-Z]+)\\s+is\\s+(\\d+)\\s+Credits$")) {
                     boolean isValidMetal = metalCreditsValidator(line);
@@ -49,19 +48,17 @@ public class GalaxyService {
                         metalService.create(metalDto.metal, metalDto.credits);
                     }
                 } else if (line.endsWith("?")) {
-                    QueryParserDto queryDto = InputParser.parseQuery(line);
-                    queryService.create(queryDto.queryType, queryDto.queryContent);
+                    QueryDto queryDto = InputParser.parseQuery(line);
+                    queryService.create(queryDto.getQueryType(), queryDto.getQueryContent());
                 }
                 else {
                     throw new InvalidInputFileDataException("file data is invalid");
                 }
             }
-        } catch (IOException | InvalidIntergalacticTransactionUnitDataException |
-                 IntergalacticUnitAlreadyExistException | InvalidMetalDataException | MetalAlreadyExistException |
-                 InvalidRomanValueException | InvalidQueryDataException e) {
+        } catch (IOException | InvalidIntergalacticUnitDataException | IntergalacticUnitAlreadyExistException |
+                 InvalidMetalDataException | MetalAlreadyExistException | InvalidRomanValueException |
+                 InvalidQueryDataException e) {
             return false;
-        } catch (InvalidInputFileDataException e) {
-            throw new RuntimeException(e);
         }
         return true;
     }

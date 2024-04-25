@@ -7,15 +7,6 @@ import static com.amaap.merchentguide.domain.model.valueobject.validator.QueryVa
 import static org.junit.jupiter.api.Assertions.*;
 
 class QueryValidatorTest {
-
-    @Test
-    void shouldBeAbleToValidateQueryId()
-    {
-        assertTrue(isValidId(1));
-        assertFalse(isValidId(0));
-        assertFalse(isValidId(-1));
-    }
-
     @Test
     void shouldBeAbleToValidateQueryType()
     {
@@ -37,5 +28,15 @@ class QueryValidatorTest {
         assertFalse(isValidQueryContent(null));
         assertFalse(isValidQueryContent(""));
         assertFalse(isValidQueryContent("How much is glob prok"));
+    }
+
+    @Test
+    void shouldBeAbleToCreateInstanceOfClass()
+    {
+        // arrange & act
+        QueryValidator queryValidator = new QueryValidator();
+
+        // assert
+        assertNotNull(queryValidator);
     }
 }

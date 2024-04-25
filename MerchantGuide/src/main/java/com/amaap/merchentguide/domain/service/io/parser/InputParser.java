@@ -1,9 +1,8 @@
 package com.amaap.merchentguide.domain.service.io.parser;
 
-import com.amaap.merchentguide.domain.model.dto.IntergalacticUnitDto;
 import com.amaap.merchentguide.domain.model.dto.MetalDto;
-import com.amaap.merchentguide.domain.model.dto.QueryParserDto;
 import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
+import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
 import com.amaap.merchentguide.domain.model.valueobject.QueryType;
 import com.amaap.merchentguide.domain.model.valueobject.RomanNumbers;
 import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
@@ -19,13 +18,13 @@ import static com.amaap.merchentguide.domain.service.UnitConverter.romanToDecima
 
 public class InputParser {
 
-    public static IntergalacticUnitDto parseUnit(String line) throws IOException {
+    public static IntergalacticUnit parseUnit(String line) throws IOException {
         line = line.replaceAll("\\s+", " ");
         String[] lineData = line.split(" ");
         String interGalacticUnit = lineData[0];
         String romanValue = lineData[2].toUpperCase();
         int actualValue = RomanNumbers.valueOf(romanValue).getValue();
-        return new IntergalacticUnitDto(interGalacticUnit,romanValue,actualValue);
+        return new IntergalacticUnit(interGalacticUnit,romanValue,actualValue);
     }
 
     public static MetalDto parseMetal(String line, IntergalacticUnitService intergalacticUnitService) throws IOException, InvalidRomanValueException {
@@ -56,7 +55,7 @@ public class InputParser {
         return new MetalDto(metal,creditsForSingleUnit);
     }
 
-    public static QueryParserDto parseQuery(String line) {
+    public static QueryDto parseQuery(String line) {
         line = line.replaceAll("\\s+", " ");
         QueryType queryType;
         if(line.matches("^how much is (.+)\\s*\\?$"))
@@ -71,6 +70,6 @@ public class InputParser {
         {
             queryType = QueryType.INVALID_QUERY;
         }
-        return new QueryParserDto(queryType,line);
+        return new QueryDto(queryType,line);
     }
 }

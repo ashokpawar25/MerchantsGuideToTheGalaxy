@@ -1,7 +1,7 @@
 package com.amaap.merchentguide.service;
 
 import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
-import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticTransactionUnitDataException;
+import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticUnitDataException;
 import com.amaap.merchentguide.repository.IntergalacticUnitRepository;
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
 import com.amaap.merchentguide.repository.db.impl.FakeInMemoryDatabase;
@@ -17,7 +17,7 @@ class IntergalacticUnitServiceTest {
     IntergalacticUnitService intergalacticUnitService = new IntergalacticUnitService(intergalacticUnitRepository);
 
     @Test
-    void shouldBeAbleToCreateIntergalacticTransactionUnit() throws InvalidIntergalacticTransactionUnitDataException, IntergalacticUnitAlreadyExistException {
+    void shouldBeAbleToCreateIntergalacticTransactionUnit() throws InvalidIntergalacticUnitDataException, IntergalacticUnitAlreadyExistException {
         // arrange
         String intergalacticValue = "glob";
         String romanValue = "I";
@@ -32,7 +32,7 @@ class IntergalacticUnitServiceTest {
     }
 
     @Test
-    void shouldBeAbleToGetIntergalacticTransactionUnitByIntergalacticTransactionUnit() throws InvalidIntergalacticTransactionUnitDataException, IntergalacticUnitAlreadyExistException {
+    void shouldBeAbleToGetIntergalacticTransactionUnitByIntergalacticTransactionUnit() throws InvalidIntergalacticUnitDataException, IntergalacticUnitAlreadyExistException {
         // arrange
         String intergalacticValue = "glob";
         String romanValue = "I";
