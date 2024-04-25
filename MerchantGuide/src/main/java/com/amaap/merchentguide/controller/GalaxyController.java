@@ -1,5 +1,6 @@
 package com.amaap.merchentguide.controller;
 
+import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
 import com.amaap.merchentguide.service.GalaxyService;
 
 public class GalaxyController {
@@ -12,7 +13,7 @@ public class GalaxyController {
         return galaxyService.readFile(filePath);
     }
 
-    public String processQueries() {
+    public String processQueries() throws InvalidRomanValueException {
         return galaxyService.processQueries();
     }
 }

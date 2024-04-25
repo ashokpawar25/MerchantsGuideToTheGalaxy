@@ -1,5 +1,6 @@
 package com.amaap.merchentguide.controller;
 
+import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
 import com.amaap.merchentguide.repository.db.impl.FakeInMemoryDatabase;
 import com.amaap.merchentguide.repository.impl.InMemoryIntergalacticTransactionUnitRepository;
 import com.amaap.merchentguide.repository.impl.InMemoryMetalRepository;
@@ -38,8 +39,7 @@ public class GalaxyControllerTest {
     }
 
     @Test
-    void shouldBeAbleToProcessQueryAndReturnResult()
-    {
+    void shouldBeAbleToProcessQueryAndReturnResult() throws InvalidRomanValueException {
         // arrange
         String filePath = "src/main/java/com/amaap/merchentguide/resources/inputData.txt";
         String expected = "pish tegj glob glob is 42\n" +

@@ -6,9 +6,9 @@ import com.amaap.merchentguide.domain.service.MetalQueryProcessor;
 import com.amaap.merchentguide.domain.service.UnitQueryProcessor;
 
 public class ProcessorFactory {
-    public static QueryProcessor getProcessor(QueryType queryType) {
+    public static QueryProcessor getProcessor(QueryType queryType, IntergalacticTransactionUnitService unitService, MetalService metalService) {
         if(queryType.equals(QueryType.UNIT_QUERY))
-            return new UnitQueryProcessor();
+            return new UnitQueryProcessor(unitService);
         else if(queryType.equals(QueryType.METAL_QUERY))
             return new MetalQueryProcessor();
         else

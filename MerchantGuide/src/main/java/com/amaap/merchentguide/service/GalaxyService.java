@@ -65,14 +65,14 @@ public class GalaxyService {
         return true;
     }
 
-    public String processQueries() {
+    public String processQueries() throws InvalidRomanValueException {
         List<QueryDto> queries = queryService.getAllQueries();
         StringBuilder finalResult = new StringBuilder();
         for(QueryDto query:queries)
         {
-            QueryProcessor queryProcessor = ProcessorFactory.getProcessor(query.getQueryType());
+            QueryProcessor queryProcessor = ProcessorFactory.getProcessor(query.getQueryType(),intergalacticUnitService,metalService);
             String result = queryProcessor.processQuery(query.getQueryContent());
-            finalResult.append(result);
+            finalResult.append("\n").append(result);
         }
         return finalResult.toString();
     }

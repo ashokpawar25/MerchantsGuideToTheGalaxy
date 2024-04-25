@@ -5,6 +5,6 @@ import com.amaap.merchentguide.service.QueryProcessor;
 public class InvalidQueryProcessor implements QueryProcessor {
     @Override
     public String processQuery(String queryContent) {
-        return null;
+        return "I have no idea what you are talking about";
     }
 }
