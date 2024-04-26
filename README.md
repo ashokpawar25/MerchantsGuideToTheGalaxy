@@ -52,189 +52,220 @@ glob prok Gold is 57800 Credits
 glob prok Iron is 782 Credits
 I have no idea what you are talking about
 
-# Package : Domain (Having information of models and services)
 
-# Models:
+## process:
+-read file data
+-validate data
+-parse data
+-add into database
+-work on the query
 
-# IntergalacticTransactionUnit
+## assupmtions
+- If input line consist multiple spaces or tabs then I will replace it by single space
+- As I am storing every line read from the file into the database the sequence of lines doesn't matter
 
-## States
-- `private String intergalacticValue`
-- `private String romanValue`
-- `private int actualValue`
+## Design pattern
+= Factory Design pattern:
+  I used the factory design pattern to get the instance of different types of query processor classes fron the factory.
 
-## Constructors
-- `public IntergalacticTransactionUnit(String intergalacticValue, String romanValue, int actualValue)`
-- `public static IntergalacticTransactionUnit create(String intergalacticValue, String romanValue, int actualValue)`
+# domain Package - It consist domain models and domain services
+## domain.model.entity Package - It consist all the entities
 
-## Behaviors
-- `public String getIntergalacticValue()`
-- `public String getRomanValue()`
-- `public int getActualValue()`
-- `@Override public boolean equals(Object o)`
+## IntergalacticUnit
+### States
+- `private final String intergalacticValue`
+- `private final String romanValue`
+- `private final double actualValue`
 
-# Metal
+### Constructors
+- `public IntergalacticUnit(String intergalacticValue, String romanValue, double actualValue)`
+- `public static IntergalacticUnit create(String intergalacticValue, String romanValue, double actualValue)`
 
-## States
-- `private String name`
-- `private long credits`
+### Behaviors
+- `getter methods`
 
-## Constructors
-- `public Metal(String name, long credits)`
-- `public static Metal create(String name, long credits)`
 
-## Behaviors
-- `public String getName()`
-- `@Override public boolean equals(Object o)`
+## Metal
+### States
+- `private final String name`
+- `private final double credits`
 
-# Validator (validate the states of models)
+### Constructors
+- `public Metal(String name, double credits)`
+- `public static Metal create(String name, double credits)`
 
-# IntergalacticTransactionUnitValidator
+### Behaviors
+- `getter methods`
 
-## Behaviors
+
+## model.entity.validator Package - This package having classes for the validations of entities
+
+## IntergalacticUnitValidator
+### Behaviors
 - `public static boolean isInvalidIntergalacticValue(String intergalacticValue)`
 - `public static boolean isInvalidRomanValue(String romanValue)`
 
-# MetalValidator
 
-## Behaviors
+## MetalValidator
+### Behaviors
 - `public static boolean isInvalidMetalName(String name)`
-- `public static boolean isInvalidCredits(long credits)`
+- `public static boolean isInvalidCredits(double credits)`
 
-# IOService
+## QueryDto
+### States
+- `private final QueryType queryType`
+- `private final String queryContent`
 
-## States
-- `IntergalacticTransactionUnitService intergalacticUnitService`
-- `MetalService metalService`
+### Constructors
+- `public QueryDto(QueryType queryType, String queryContent)`
+- `public static QueryDto create(QueryType queryType, String queryContent)`
 
-## Constructors
-- `public IOService(IntergalacticTransactionUnitService intergalacticTransactionUnitService, MetalService metalService)`
+### Behaviors
+- `getter methods`
 
-## Behaviors
-- `public boolean readFile(String filePath)`
+## QueryType
+### Enum Values
+- `METAL_QUERY`
+- `INVALID_QUERY`
+- `UNIT_QUERY`
 
-# InputParser
+## RomanNumbers
+### States
+- `I`: 1
+- `V`: 5
+- `X`: 10
+- `L`: 50
+- `C`: 100
+- `D`: 500
+- `M`: 1000
 
-## Behaviors
-- `public static IntergalacticUnitDto parseUnit(String line) throws IOException`
-- `public static MetalDto parseMetal(String line, IntergalacticTransactionUnitService intergalacticUnitService) throws IOException`
+### Constructors
+- `RomanNumbers(int value)`
 
-# InputValidator
+### Behaviors
+- `int getValue()`
 
-## Behaviors
-- `public static boolean unitValidator(String line) throws IOException`
-- `public static boolean metalCreditsValidator(String line) throws IOException`
+## model.valueobject.validator Package - This package having classes for the validations of valueobjects
 
-# UnitConverter
+## QueryValidator
+### Behaviors
+- `public static boolean isValidQueryType(QueryType queryType)`
+- `public static boolean isValidQueryContent(String queryContent)`
 
-## Behaviors
-- `public static long romanToDecimalConverter(StringBuilder romanValue)`
-- `public static long DecimalToRomanConverter(long decimalValue)`
 
-# Controller (Delegating operations of enitities)
+## domain.model.service Package - This package having domain service classes
 
-# IntergalacticTransactionUnitController
+## UnitQueryProcessor
+### Behaviors
+- `public String processQuery(String queryContent)`
 
-## States
-- `IntergalacticTransactionUnitService intergalacticTransactionUnitService`
+## MetalQueryProcessor
+### Behaviors
+- `public String processQuery(String queryContent)`
 
-## Constructors
-- `public IntergalacticTransactionUnitController(IntergalacticTransactionUnitService intergalacticTransactionUnitService)`
+## InvalidQueryProcessor
+### Behaviors
+- `public String processQuery(String queryContent)`
 
-## Behaviors
+## UnitConverter
+### Behaviors
+- `public static long romanToDecimalConverter(String romanValue)`
+
+## ProcessorFactory
+### States
+- `private final IntergalacticUnitService intergalacticUnitService`
+- `private final MetalService metalService`
+
+### Constructors
+- `public ProcessorFactory(IntergalacticUnitService intergalacticUnitService, MetalService metalService)`
+
+### Behaviors
+- `public QueryProcessor getProcessor(QueryType queryType)`
+
+## QueryProcessor(Interface)
+### Behaviors
+- `String processQuery(String queryContent)`
+
+## InputParser
+### Behaviors
+- `static IntergalacticUnit parseUnit(String line)`
+- `static MetalDto parseMetal(String line, IntergalacticUnitService intergalacticUnitService)`
+- `static QueryDto parseQuery(String line)`
+
+## InputValidator
+### Behaviors
+- `public static boolean unitValidator(String line)`
+- `public static boolean metalCreditsValidator(String line)`
+
+# controller Package - This package having controller classes
+
+## IntergalacticUnitController
+### Behaviors
 - `public Response create(String intergalacticValue, String romanValue, int actualValue)`
-- `public IntergalacticTransactionUnit get(String intergalacticValue)`
+- `public IntergalacticUnit get(String intergalacticValue)`
 
-# MetalController
-
-## States
-- `MetalService metalService`
-
-## Constructors
-- `public MetalController(MetalService metalService)`
-
-## Behaviors
+## MetalController
+### Behaviors
 - `public Response create(String name, long credits)`
 - `public Metal getMetal(String name)`
-# IOController
 
-## States
-- `IOService ioService`
+## QueryController
+### Behaviors
+- `public Response create(QueryType queryType, String queryContent)`
+- `public List<QueryDto> getAllQueries()`
 
-## Constructors
-- `public IOController(IOService ioService)`
-
-## Behaviors
+## GalaxyController
+### Behaviors
 - `public boolean readFile(String filePath)`
+- `public String processQueries()`
 
-# controller/dto (used to send http response from the controller)
+## controller.dto Package - This package consist class to return http status from the controller methods
+## Response
+### States
+- `private final HttpStatus httpStatus`
+- `private final String message`
 
-# Response
-
-## States
-- `HttpStatus httpStatus`
-- `String message`
-
-## Constructors
+### Constructors
 - `public Response(HttpStatus httpStatus, String message)`
 
-## Behaviors
-- `@Override public boolean equals(Object o)`
-
-
-# HttpStatus
-
-## Enum Values
-- `BADREQUEST`
+## HttpStatus
+### Enum Values
+- `BAD_REQUEST`
 - `CONFLICT`
 - `OK`
 
-# Service( It is layer between controller and repository)
+# service Package - Classes from this package are the middalware between controller layer and repository layer
 
-# IntergalacticTransactionUnitService
+## IntergalacticUnitService
+### States
+- `IntergalacticUnitRepository intergalacticUnitRepository`
 
-## States
-- `IntergalacticTransactionUnitRepository intergalacticTransactionUnitRepository`
+### Constructors
+- `public IntergalacticUnitService(IntergalacticUnitRepository intergalacticUnitRepository)`
 
-## Constructors
-- `public IntergalacticTransactionUnitService(IntergalacticTransactionUnitRepository intergalacticTransactionUnitRepository)`
+### Behaviors
+- `public IntergalacticUnit create(String intergalacticValue, String romanValue, double actualValue)`
+- `public IntergalacticUnit get(String intergalacticValue)`
 
-## Behaviors
-- `public IntergalacticTransactionUnit create(String intergalacticValue, String romanValue, int actualValue)`
-- `public IntergalacticTransactionUnit get(String intergalacticValue)`
-
-# MetalService
-
-## States
+## MetalService
+### States
 - `MetalRepository metalRepository`
 
-## Constructors
+### Constructors
 - `public MetalService(MetalRepository metalRepository)`
 
-## Behaviors
-- `public Metal create(String name, long credits)`
+### Behaviors
+- `public Metal create(String name, double credits)`
 - `public Metal getMetal(String name)`
 
-# Repository (Abstration between database and service)
+## QueryService
+### States
+- `QueryRepository queryRepository`
 
-# IntergalacticTransactionUnitRepository
+### Constructors
+- `public QueryService(QueryRepository queryRepository)`
 
-## Behaviors
-- `IntergalacticTransactionUnit add(String intergalacticValue, String romanValue, int actualValue)`
-- `IntergalacticTransactionUnit find(String intergalacticValue)`
+### Behaviors
+- `public QueryDto create(QueryType queryType, String queryContent)`
+- `public List<QueryDto> getAllQueries()`
 
-# MetalRepository
-
-## Behaviors
-- `Metal add(String name, long credits)`
-- `Metal selectFromMetalTable(String name)`
-
-# Database (Storing actal database)
-
-# InMemoryDatabase
-
-## Behaviors
-- `IntergalacticTransactionUnit InsertIntoIntergalacticTransactionUnitTable(String intergalacticValue, String romanValue, int actualValue)`
-- `IntergalacticTransactionUnit selectFromIntergalacticTransactionUnitTable(String intergalacticValue)`
-- `Metal InsertIntoMetalTable(String name, long credits)`
-- `Metal selectFromMetalTable(String name)`
