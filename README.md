@@ -54,18 +54,18 @@ I have no idea what you are talking about
 
 
 ## process:
--read file data
--validate data
--parse data
--add into database
--work on the query
+- read file data
+- validate data
+- parse data
+- add into database
+- work on the query
 
 ## assupmtions
 - If input line consist multiple spaces or tabs then I will replace it by single space
 - As I am storing every line read from the file into the database the sequence of lines doesn't matter
 
 ## Design pattern
-= Factory Design pattern:
+- Factory Design pattern:
   I used the factory design pattern to get the instance of different types of query processor classes fron the factory.
 
 # domain Package - It consist domain models and domain services
