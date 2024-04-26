@@ -4,10 +4,12 @@ import com.amaap.merchentguide.domain.model.valueobject.QueryType;
 import com.amaap.merchentguide.domain.service.InvalidQueryProcessor;
 import com.amaap.merchentguide.domain.service.MetalQueryProcessor;
 import com.amaap.merchentguide.domain.service.UnitQueryProcessor;
+import jakarta.inject.Inject;
 
 public class ProcessorFactory {
     IntergalacticUnitService intergalacticUnitService;
     MetalService metalService;
+    @Inject
     public ProcessorFactory(IntergalacticUnitService intergalacticUnitService, MetalService metalService) {
         this.intergalacticUnitService = intergalacticUnitService;
         this.metalService = metalService;

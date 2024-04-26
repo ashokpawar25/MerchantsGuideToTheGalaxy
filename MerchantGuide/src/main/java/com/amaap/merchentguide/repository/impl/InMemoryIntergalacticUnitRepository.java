@@ -5,9 +5,11 @@ import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacti
 import com.amaap.merchentguide.repository.IntergalacticUnitRepository;
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
+import jakarta.inject.Inject;
 
 public class InMemoryIntergalacticUnitRepository implements IntergalacticUnitRepository {
     InMemoryDatabase inMemoryDatabase;
+    @Inject
     public InMemoryIntergalacticUnitRepository(InMemoryDatabase inMemoryDatabase) {
         this.inMemoryDatabase = inMemoryDatabase;
     }

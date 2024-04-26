@@ -6,9 +6,11 @@ import com.amaap.merchentguide.controller.dto.HttpStatus;
 import com.amaap.merchentguide.controller.dto.Response;
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
 import com.amaap.merchentguide.service.MetalService;
+import jakarta.inject.Inject;
 
 public class MetalController {
     MetalService metalService;
+    @Inject
     public MetalController(MetalService metalService) {
         this.metalService = metalService;
     }

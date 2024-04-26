@@ -4,9 +4,11 @@ import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticUnitDataException;
 import com.amaap.merchentguide.repository.IntergalacticUnitRepository;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
+import jakarta.inject.Inject;
 
 public class IntergalacticUnitService {
     IntergalacticUnitRepository intergalacticUnitRepository;
+    @Inject
     public IntergalacticUnitService(IntergalacticUnitRepository intergalacticUnitRepository) {
         this.intergalacticUnitRepository = intergalacticUnitRepository;
     }

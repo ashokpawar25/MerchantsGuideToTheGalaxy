@@ -6,11 +6,13 @@ import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
 import com.amaap.merchentguide.domain.model.valueobject.QueryType;
 import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDataException;
 import com.amaap.merchentguide.service.QueryService;
+import jakarta.inject.Inject;
 
 import java.util.List;
 
 public class QueryController {
     private final QueryService queryService;
+    @Inject
     public QueryController(QueryService queryService) {
         this.queryService = queryService;
     }

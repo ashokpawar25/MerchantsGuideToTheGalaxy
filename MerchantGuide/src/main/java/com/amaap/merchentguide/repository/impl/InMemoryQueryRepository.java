@@ -5,11 +5,13 @@ import com.amaap.merchentguide.domain.model.valueobject.QueryType;
 import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDataException;
 import com.amaap.merchentguide.repository.QueryRepository;
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
+import jakarta.inject.Inject;
 
 import java.util.List;
 
 public class InMemoryQueryRepository implements QueryRepository {
     InMemoryDatabase inMemoryDatabase;
+    @Inject
     public InMemoryQueryRepository(InMemoryDatabase inMemoryDatabase) {
         this.inMemoryDatabase = inMemoryDatabase;
     }

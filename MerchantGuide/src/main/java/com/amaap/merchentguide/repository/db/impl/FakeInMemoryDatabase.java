@@ -10,6 +10,7 @@ import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDa
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
+import jakarta.inject.Singleton;
 
 import java.util.ArrayList;
 import java.util.List;

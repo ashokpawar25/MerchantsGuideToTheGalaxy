@@ -5,9 +5,11 @@ import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataExc
 import com.amaap.merchentguide.repository.MetalRepository;
 import com.amaap.merchentguide.repository.db.InMemoryDatabase;
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
+import jakarta.inject.Inject;
 
 public class InMemoryMetalRepository implements MetalRepository {
     InMemoryDatabase inMemoryDatabase;
+    @Inject
     public InMemoryMetalRepository(InMemoryDatabase inMemoryDatabase) {
         this.inMemoryDatabase = inMemoryDatabase;
     }

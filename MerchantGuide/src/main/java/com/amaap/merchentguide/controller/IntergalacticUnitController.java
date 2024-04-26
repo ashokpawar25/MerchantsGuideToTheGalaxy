@@ -6,11 +6,12 @@ import com.amaap.merchentguide.controller.dto.HttpStatus;
 import com.amaap.merchentguide.controller.dto.Response;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
 import com.amaap.merchentguide.service.IntergalacticUnitService;
+import jakarta.inject.Inject;
 
 public class IntergalacticUnitController {
 
     IntergalacticUnitService intergalacticUnitService;
-
+    @Inject
     public IntergalacticUnitController(IntergalacticUnitService intergalacticUnitService) {
         this.intergalacticUnitService = intergalacticUnitService;
     }
