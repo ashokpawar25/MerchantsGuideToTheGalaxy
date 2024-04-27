@@ -269,3 +269,84 @@ I have no idea what you are talking about
 - `public QueryDto create(QueryType queryType, String queryContent)`
 - `public List<QueryDto> getAllQueries()`
 
+## GalaxyService
+
+### States
+
+- `IntergalacticUnitService intergalacticUnitService`
+- `MetalService metalService`
+- `QueryService queryService`
+- `ProcessorFactory processorFactory`
+
+### Constructors
+
+- `public GalaxyService(IntergalacticUnitService intergalacticUnitService, MetalService metalService, QueryService queryService, ProcessorFactory processorFactory)`
+
+### Behaviors
+
+- `public boolean readFile(String filePath)`
+- `public String processQueries()`
+
+# Repository Package - Classes from this package interact with the database, performing operations requested by the services.
+
+## InMemoryIntergalacticUnitRepository
+
+### States
+
+- `private final InMemoryDatabase inMemoryDatabase`
+
+### Constructors
+
+- `public InMemoryIntergalacticUnitRepository(InMemoryDatabase inMemoryDatabase)`
+
+### Behaviors
+
+- `public IntergalacticUnit add(String intergalacticValue, String romanValue, double actualValue)`
+- `public IntergalacticUnit find(String intergalacticValue)`
+
+## InMemoryMetalRepository
+
+### States
+
+- `private final InMemoryDatabase inMemoryDatabase`
+
+### Constructors
+
+- `public InMemoryMetalRepository(InMemoryDatabase inMemoryDatabase)`
+
+### Behaviors
+
+- `public Metal add(String name, double credits)`
+- `public Metal selectFromMetalTable(String name)`
+
+## InMemoryQueryRepository
+
+### States
+
+- `private final InMemoryDatabase inMemoryDatabase`
+
+### Constructors
+
+- `public InMemoryQueryRepository(InMemoryDatabase inMemoryDatabase)`
+
+### Behaviors
+
+- `public QueryDto add(QueryType queryType, String queryContent)`
+- `public List<QueryDto> getAllQueries()`
+
+## FakeInMemoryDatabase
+
+### States
+
+- `List<IntergalacticUnit> intergalacticUnits`
+- `List<Metal> metals`
+- `List<QueryDto> queries`
+
+### Behaviors
+
+- `public IntergalacticUnit InsertIntoIntergalacticUnitTable(String intergalacticValue, String romanValue, double actualValue)`
+- `public IntergalacticUnit selectFromIntergalacticUnitTable(String intergalacticValue)`
+- `public Metal InsertIntoMetalTable(String name, double credits)`
+- `public Metal selectFromMetalTable(String name)`
+- `public QueryDto insertIntoQueryTable(QueryType queryType, String queryContent)`
+- `public List<QueryDto> getAllQueries()`
