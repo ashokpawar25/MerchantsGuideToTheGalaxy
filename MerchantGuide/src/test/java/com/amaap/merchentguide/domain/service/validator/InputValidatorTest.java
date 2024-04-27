@@ -1,11 +1,9 @@
-package com.amaap.merchentguide.domain.service.io.validator;
+package com.amaap.merchentguide.domain.service.validator;
 
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static com.amaap.merchentguide.domain.service.io.validator.InputValidator.metalCreditsValidator;
-import static com.amaap.merchentguide.domain.service.io.validator.InputValidator.unitValidator;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InputValidatorTest {
@@ -16,7 +14,7 @@ class InputValidatorTest {
         String inputLine = "glob is I";
 
         // act
-        boolean isValid = unitValidator(inputLine);
+        boolean isValid = InputValidator.unitValidator(inputLine);
 
         // assert
         assertTrue(isValid);
@@ -28,7 +26,7 @@ class InputValidatorTest {
         String inputLine = "glob is S";
 
         // act
-        boolean isValid = unitValidator(inputLine);
+        boolean isValid = InputValidator.unitValidator(inputLine);
 
         // assert
         assertFalse(isValid);
@@ -40,7 +38,7 @@ class InputValidatorTest {
         String inputLine = "glob prok Gold is 57800 Credits";
 
         // act
-        boolean isValid = metalCreditsValidator(inputLine);
+        boolean isValid = InputValidator.metalCreditsValidator(inputLine);
 
         // assert
         assertTrue(isValid);
@@ -52,7 +50,7 @@ class InputValidatorTest {
         String inputLine = "glob prok wood is 57800 Credits";
 
         // act
-        boolean isValid = metalCreditsValidator(inputLine);
+        boolean isValid = InputValidator.metalCreditsValidator(inputLine);
 
         // assert
         assertFalse(isValid);

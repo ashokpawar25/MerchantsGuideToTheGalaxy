@@ -5,7 +5,6 @@ import com.amaap.merchentguide.domain.model.entity.Metal;
 import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
 import com.amaap.merchentguide.service.IntergalacticUnitService;
 import com.amaap.merchentguide.service.MetalService;
-import com.amaap.merchentguide.service.QueryProcessor;
 
 import static com.amaap.merchentguide.domain.service.UnitConverter.romanToDecimalConverter;
 

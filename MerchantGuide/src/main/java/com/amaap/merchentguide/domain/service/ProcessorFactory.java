@@ -1,9 +1,8 @@
-package com.amaap.merchentguide.service;
+package com.amaap.merchentguide.domain.service;
 
 import com.amaap.merchentguide.domain.model.valueobject.QueryType;
-import com.amaap.merchentguide.domain.service.InvalidQueryProcessor;
-import com.amaap.merchentguide.domain.service.MetalQueryProcessor;
-import com.amaap.merchentguide.domain.service.UnitQueryProcessor;
+import com.amaap.merchentguide.service.IntergalacticUnitService;
+import com.amaap.merchentguide.service.MetalService;
 import jakarta.inject.Inject;
 
 public class ProcessorFactory {

@@ -3,11 +3,12 @@ package com.amaap.merchentguide.domain.service.io.parser;
 import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
 import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
 import com.amaap.merchentguide.domain.model.valueobject.QueryType;
+import com.amaap.merchentguide.domain.service.parser.InputParser;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static com.amaap.merchentguide.domain.service.io.parser.InputParser.*;
+import static com.amaap.merchentguide.domain.service.parser.InputParser.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InputParserTest {

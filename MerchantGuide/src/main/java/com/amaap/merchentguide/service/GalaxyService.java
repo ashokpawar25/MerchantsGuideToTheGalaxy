@@ -6,8 +6,10 @@ import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacti
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidMetalDataException;
 import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
 import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDataException;
+import com.amaap.merchentguide.domain.service.ProcessorFactory;
+import com.amaap.merchentguide.domain.service.QueryProcessor;
 import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
-import com.amaap.merchentguide.domain.service.io.parser.InputParser;
+import com.amaap.merchentguide.domain.service.parser.InputParser;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
 import com.amaap.merchentguide.service.exception.InvalidInputFileDataException;
@@ -16,8 +18,8 @@ import jakarta.inject.Inject;
 import java.io.*;
 import java.util.List;
 
-import static com.amaap.merchentguide.domain.service.io.validator.InputValidator.metalCreditsValidator;
-import static com.amaap.merchentguide.domain.service.io.validator.InputValidator.unitValidator;
+import static com.amaap.merchentguide.domain.service.validator.InputValidator.metalCreditsValidator;
+import static com.amaap.merchentguide.domain.service.validator.InputValidator.unitValidator;
 
 public class GalaxyService {
     private final IntergalacticUnitService intergalacticUnitService;

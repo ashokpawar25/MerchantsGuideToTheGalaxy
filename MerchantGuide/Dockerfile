@@ -1,9 +1,9 @@
 FROM openjdk:latest
 
+ARG JAR_FILE_LOCATION=build/libs/MerchantGuide-1.0-SNAPSHOT.jar
+
 WORKDIR /app/merchantguid
 
-COPY ./src /app/merchantguid
+COPY ${JAR_FILE_LOCATION} app.jar
 
-RUN javac G:\Amaap\MerchentGuide\MerchantGuide\src\main\java\com\amaap\merchentguide\Main.java
-
-CMD ["java", "-cp", "src", "Main"]
+ENTRYPOINT ["java", "-jar", "app.jar"]

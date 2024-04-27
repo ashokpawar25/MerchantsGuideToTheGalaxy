@@ -8,7 +8,7 @@ import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistExc
 import jakarta.inject.Inject;
 
 public class InMemoryMetalRepository implements MetalRepository {
-    InMemoryDatabase inMemoryDatabase;
+    private final InMemoryDatabase inMemoryDatabase;
     @Inject
     public InMemoryMetalRepository(InMemoryDatabase inMemoryDatabase) {
         this.inMemoryDatabase = inMemoryDatabase;

@@ -8,7 +8,7 @@ import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlr
 import jakarta.inject.Inject;
 
 public class InMemoryIntergalacticUnitRepository implements IntergalacticUnitRepository {
-    InMemoryDatabase inMemoryDatabase;
+    private final InMemoryDatabase inMemoryDatabase;
     @Inject
     public InMemoryIntergalacticUnitRepository(InMemoryDatabase inMemoryDatabase) {
         this.inMemoryDatabase = inMemoryDatabase;

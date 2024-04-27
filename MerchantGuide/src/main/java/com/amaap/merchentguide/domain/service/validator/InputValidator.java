@@ -1,4 +1,4 @@
-package com.amaap.merchentguide.domain.service.io.validator;
+package com.amaap.merchentguide.domain.service.validator;
 
 import com.amaap.merchentguide.domain.model.valueobject.RomanNumbers;
 import org.yaml.snakeyaml.Yaml;

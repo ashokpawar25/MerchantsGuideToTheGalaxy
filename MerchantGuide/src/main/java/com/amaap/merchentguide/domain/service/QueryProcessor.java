@@ -1,4 +1,4 @@
-package com.amaap.merchentguide.service;
+package com.amaap.merchentguide.domain.service;
 
 import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
 
