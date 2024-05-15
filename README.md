@@ -200,24 +200,50 @@ I have no idea what you are talking about
 # controller Package - This package having controller classes
 
 ## IntergalacticUnitController
+### States
+- `private final IntergalacticUnitService intergalacticUnitService`
+
+### Constructors
+- `public IntergalacticUnitController(IntergalacticUnitService intergalacticUnitService)`
+
 ### Behaviors
 - `public Response create(String intergalacticValue, String romanValue, int actualValue)`
 - `public IntergalacticUnit get(String intergalacticValue)`
 
+
 ## MetalController
+### States
+- `private final MetalService metalService`
+
+### Constructors
+- `public MetalController(MetalService metalService)`
+
 ### Behaviors
 - `public Response create(String name, long credits)`
 - `public Metal getMetal(String name)`
 
 ## QueryController
+### States
+- `private final QueryService queryService`
+
+### Constructors
+- `public QueryController(QueryService queryService)`
+
 ### Behaviors
 - `public Response create(QueryType queryType, String queryContent)`
 - `public List<QueryDto> getAllQueries()`
 
 ## GalaxyController
+### States
+- `private final GalaxyService galaxyService`
+
+### Constructors
+- `public GalaxyController(GalaxyService galaxyService)`
+
 ### Behaviors
 - `public boolean readFile(String filePath)`
 - `public String processQueries()`
+
 
 ## controller.dto Package - This package consist class to return http status from the controller methods
 ## Response
