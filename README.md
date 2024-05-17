@@ -194,8 +194,8 @@ I have no idea what you are talking about
 
 ## InputValidator
 ### Behaviors
-- `public static boolean unitValidator(String line)`
-- `public static boolean metalCreditsValidator(String line)`
+- `public static boolean validateUnit(String line)`
+- `public static boolean validateMetalCredits(String line)`
 
 # controller Package - This package having controller classes
 
