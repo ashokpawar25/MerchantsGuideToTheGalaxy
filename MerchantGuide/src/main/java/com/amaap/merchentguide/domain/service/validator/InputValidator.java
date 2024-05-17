@@ -5,12 +5,11 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
 public class InputValidator {
-    public static boolean unitValidator(String line){
+    public static boolean validateUnit(String line){
         line = line.replaceAll("\\s+", " ");
         String[] lineData = line.split(" ");
         String unit = lineData[2].toUpperCase();
@@ -22,7 +21,7 @@ public class InputValidator {
         return false;
     }
 
-    public static boolean metalCreditsValidator(String line) throws IOException {
+    public static boolean validateMetalCredits(String line) throws IOException {
         line = line.replaceAll("\\s+", " ");
         Yaml yaml = new Yaml();
         FileInputStream inputStream = new FileInputStream("src/main/java/com/amaap/merchentguide/resources/validData.yml");

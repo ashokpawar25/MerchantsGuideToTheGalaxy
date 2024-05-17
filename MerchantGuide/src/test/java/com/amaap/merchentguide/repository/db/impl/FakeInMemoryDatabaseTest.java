@@ -1,5 +1,6 @@
 package com.amaap.merchentguide.repository.db.impl;
 
+import com.amaap.merchentguide.AppModule;
 import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
 import com.amaap.merchentguide.domain.model.entity.Metal;
 import com.amaap.merchentguide.domain.model.entity.exception.InvalidIntergalacticUnitDataException;
@@ -9,28 +10,39 @@ import com.amaap.merchentguide.domain.model.valueobject.QueryType;
 import com.amaap.merchentguide.domain.model.valueobject.exception.InvalidQueryDataException;
 import com.amaap.merchentguide.repository.db.impl.exception.IntergalacticUnitAlreadyExistException;
 import com.amaap.merchentguide.repository.db.impl.exception.MetalAlreadyExistException;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static com.amaap.merchentguide.domain.model.valueobject.builder.QueryBuilder.getQueries;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FakeInMemoryDatabaseTest {
-    FakeInMemoryDatabase fakeInMemoryDatabase = new FakeInMemoryDatabase();
+    FakeInMemoryDatabase fakeInMemoryDatabase;
+
+    @BeforeEach
+    void setUp() {
+        Injector injector = Guice.createInjector(new AppModule());
+        fakeInMemoryDatabase = injector.getInstance(FakeInMemoryDatabase.class);
+    }
+
     @Test
     void shouldBeAbleToCreateIntergalacticTransactionUnit() throws InvalidIntergalacticUnitDataException, IntergalacticUnitAlreadyExistException {
         // arrange
         String intergalacticValue = "glob";
         String romanValue = "I";
         int actualValue = 1;
-        IntergalacticUnit expected = new IntergalacticUnit(intergalacticValue,romanValue,actualValue);
+        IntergalacticUnit expected = new IntergalacticUnit(intergalacticValue, romanValue, actualValue);
 
         // act
-        IntergalacticUnit actual = fakeInMemoryDatabase.InsertIntoIntergalacticUnitTable(intergalacticValue,romanValue,actualValue);
+        IntergalacticUnit actual = fakeInMemoryDatabase.InsertIntoIntergalacticUnitTable(intergalacticValue, romanValue, actualValue);
 
         // assert
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -39,14 +51,14 @@ class FakeInMemoryDatabaseTest {
         String intergalacticValue = "glob";
         String romanValue = "I";
         int actualValue = 1;
-        IntergalacticUnit expected = new IntergalacticUnit(intergalacticValue,romanValue,actualValue);
+        IntergalacticUnit expected = new IntergalacticUnit(intergalacticValue, romanValue, actualValue);
 
         // act
-        fakeInMemoryDatabase.InsertIntoIntergalacticUnitTable(intergalacticValue,romanValue,actualValue);
+        fakeInMemoryDatabase.InsertIntoIntergalacticUnitTable(intergalacticValue, romanValue, actualValue);
         IntergalacticUnit actual = fakeInMemoryDatabase.selectFromIntergalacticUnitTable(intergalacticValue);
 
         // assert
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
 
@@ -55,23 +67,23 @@ class FakeInMemoryDatabaseTest {
         // arrange
         String name = "Silver";
         long credits = 17;
-        Metal expected = new Metal(name,credits);
+        Metal expected = new Metal(name, credits);
 
         // act
-        Metal actual = fakeInMemoryDatabase.InsertIntoMetalTable(name,credits);
+        Metal actual = fakeInMemoryDatabase.InsertIntoMetalTable(name, credits);
 
         // assert
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
 
     }
 
     @Test
     void shouldBeAbleToThrowExceptionWhenMetalIsAlreadyPresentInDatabase() throws MetalAlreadyExistException, InvalidMetalDataException {
         // arrange
-        fakeInMemoryDatabase.InsertIntoMetalTable("Silver",17);
+        fakeInMemoryDatabase.InsertIntoMetalTable("Silver", 17);
 
         // assert
-        assertThrows(MetalAlreadyExistException.class,()-> fakeInMemoryDatabase.InsertIntoMetalTable("Silver",17));
+        assertThrows(MetalAlreadyExistException.class, () -> fakeInMemoryDatabase.InsertIntoMetalTable("Silver", 17));
 
     }
 
@@ -80,14 +92,14 @@ class FakeInMemoryDatabaseTest {
         // arrange
         String name = "Silver";
         long credits = 17;
-        Metal expected  = new Metal(name,credits);
+        Metal expected = new Metal(name, credits);
 
         // act
-        fakeInMemoryDatabase.InsertIntoMetalTable(name,credits);
+        fakeInMemoryDatabase.InsertIntoMetalTable(name, credits);
         Metal actual = fakeInMemoryDatabase.selectFromMetalTable(name);
 
         // assert
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -96,13 +108,13 @@ class FakeInMemoryDatabaseTest {
         int id = 1;
         QueryType queryType = QueryType.UNIT_QUERY;
         String queryContent = "How much is glob prok ?";
-        QueryDto expected = new QueryDto(queryType,queryContent);
+        QueryDto expected = new QueryDto(queryType, queryContent);
 
         // act
-        QueryDto actual = fakeInMemoryDatabase.insertIntoQueryTable(queryType,queryContent);
+        QueryDto actual = fakeInMemoryDatabase.insertIntoQueryTable(queryType, queryContent);
 
         // assert
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -111,11 +123,11 @@ class FakeInMemoryDatabaseTest {
         List<QueryDto> expected = getQueries();
 
         // act
-        fakeInMemoryDatabase.insertIntoQueryTable(QueryType.UNIT_QUERY,"How much is glob prok?");
-        fakeInMemoryDatabase.insertIntoQueryTable(QueryType.METAL_QUERY,"how many Credits is glob prok Iron ?");
+        fakeInMemoryDatabase.insertIntoQueryTable(QueryType.UNIT_QUERY, "How much is glob prok?");
+        fakeInMemoryDatabase.insertIntoQueryTable(QueryType.METAL_QUERY, "how many Credits is glob prok Iron ?");
         List<QueryDto> actual = fakeInMemoryDatabase.getAllQueries();
 
         // assert
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 }

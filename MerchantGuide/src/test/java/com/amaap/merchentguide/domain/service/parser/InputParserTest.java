@@ -1,4 +1,4 @@
-package com.amaap.merchentguide.domain.service.io.parser;
+package com.amaap.merchentguide.domain.service.parser;
 
 import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
 import com.amaap.merchentguide.domain.model.valueobject.QueryDto;

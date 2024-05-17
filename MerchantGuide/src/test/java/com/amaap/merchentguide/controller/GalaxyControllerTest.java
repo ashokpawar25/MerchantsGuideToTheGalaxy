@@ -1,29 +1,24 @@
 package com.amaap.merchentguide.controller;
 
-import com.amaap.merchentguide.domain.service.ProcessorFactory;
+import com.amaap.merchentguide.AppModule;
 import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
-import com.amaap.merchentguide.repository.db.impl.FakeInMemoryDatabase;
-import com.amaap.merchentguide.repository.impl.InMemoryIntergalacticUnitRepository;
-import com.amaap.merchentguide.repository.impl.InMemoryMetalRepository;
-import com.amaap.merchentguide.repository.impl.InMemoryQueryRepository;
-import com.amaap.merchentguide.service.*;
 import com.amaap.merchentguide.service.exception.InvalidInputFileDataException;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GalaxyControllerTest {
-    IntergalacticUnitService intergalacticUnitService =
-            new IntergalacticUnitService(
-                    new InMemoryIntergalacticUnitRepository(
-                            new FakeInMemoryDatabase()));
+    GalaxyController galaxyController;
 
-    MetalService metalService = new MetalService(new InMemoryMetalRepository(new FakeInMemoryDatabase()));
-    QueryService queryService = new QueryService(new InMemoryQueryRepository(new FakeInMemoryDatabase()));
-    ProcessorFactory processorFactory = new ProcessorFactory(intergalacticUnitService,metalService);
-    GalaxyService galaxyService = new GalaxyService(intergalacticUnitService,metalService, queryService,processorFactory);
-    GalaxyController galaxyController = new GalaxyController(galaxyService);
+    @BeforeEach
+    void setUp() {
+        Injector injector = Guice.createInjector(new AppModule());
+        galaxyController = injector.getInstance(GalaxyController.class);
+    }
 
     @Test
     void shouldBeAbleToReadAndProcessFileData() throws InvalidInputFileDataException {
@@ -52,6 +47,6 @@ public class GalaxyControllerTest {
         String actual = galaxyController.processQueries();
 
         // assert
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 }

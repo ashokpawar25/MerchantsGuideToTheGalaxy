@@ -1,15 +1,14 @@
 package com.amaap.merchentguide.service;
 
+import com.amaap.merchentguide.AppModule;
 import com.amaap.merchentguide.domain.model.entity.IntergalacticUnit;
 import com.amaap.merchentguide.domain.model.entity.Metal;
 import com.amaap.merchentguide.domain.model.valueobject.QueryDto;
-import com.amaap.merchentguide.domain.service.ProcessorFactory;
 import com.amaap.merchentguide.domain.service.exception.InvalidRomanValueException;
-import com.amaap.merchentguide.repository.db.impl.FakeInMemoryDatabase;
-import com.amaap.merchentguide.repository.impl.InMemoryIntergalacticUnitRepository;
-import com.amaap.merchentguide.repository.impl.InMemoryMetalRepository;
-import com.amaap.merchentguide.repository.impl.InMemoryQueryRepository;
 import com.amaap.merchentguide.service.exception.InvalidInputFileDataException;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -19,17 +18,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GalaxyServiceTest {
 
-    IntergalacticUnitService intergalacticUnitService =
-            new IntergalacticUnitService(
-                    new InMemoryIntergalacticUnitRepository(
-                            new FakeInMemoryDatabase()));
+    IntergalacticUnitService intergalacticUnitService;
+    MetalService metalService;
+    QueryService queryService;
+    GalaxyService galaxyService;
 
-    MetalService metalService = new MetalService(new InMemoryMetalRepository(new FakeInMemoryDatabase()));
-
-    QueryService queryService = new QueryService(new InMemoryQueryRepository(new FakeInMemoryDatabase()));
-    ProcessorFactory processorFactory = new ProcessorFactory(intergalacticUnitService,metalService);
-
-    GalaxyService galaxyService = new GalaxyService(intergalacticUnitService,metalService,queryService, processorFactory);
+    @BeforeEach
+    void setUp() {
+        Injector injector = Guice.createInjector(new AppModule());
+        galaxyService = injector.getInstance(GalaxyService.class);
+        intergalacticUnitService = injector.getInstance(IntergalacticUnitService.class);
+        metalService = injector.getInstance(MetalService.class);
+        queryService = injector.getInstance(QueryService.class);
+    }
 
     @Test
     void shouldBeAbleToReadFileAndInsertIntergalacticUnitIntoDatabase() throws InvalidInputFileDataException {
@@ -44,7 +45,7 @@ class GalaxyServiceTest {
 
         // assert
         assertTrue(isReadable);
-        assertEquals(expectedUnit,actualUnit);
+        assertEquals(expectedUnit, actualUnit);
 
     }
 
@@ -64,8 +65,8 @@ class GalaxyServiceTest {
 
         // assert
         assertTrue(isReadable);
-        assertEquals(expectedMetal,actualMetal);
-        assertEquals(expectedCredits,actualCredits);
+        assertEquals(expectedMetal, actualMetal);
+        assertEquals(expectedCredits, actualCredits);
     }
 
     @Test
@@ -80,17 +81,16 @@ class GalaxyServiceTest {
 
         // assert
         assertTrue(isReadable);
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
-    void shouldBeAbleToThrowExceptionWhenFileConsistInvalidData()
-    {
+    void shouldBeAbleToThrowExceptionWhenFileConsistInvalidData() {
         // arrange
         String filePath = "src/main/java/com/amaap/merchentguide/resources/InvalidData.txt";
 
         // act & assert
-        assertThrows(InvalidInputFileDataException.class,()->galaxyService.readFile(filePath));
+        assertThrows(InvalidInputFileDataException.class, () -> galaxyService.readFile(filePath));
     }
 
     @Test
@@ -120,7 +120,7 @@ class GalaxyServiceTest {
         String actual = galaxyService.processQueries();
 
         // assert
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
 }

@@ -1,6 +1,6 @@
-glob     is I
-how much is pish         tegj      glob   glob ?
 prok     is     V
+how much is pish tegj      glob   glob ?
+glob     is I
 glob     prok   Gold     is 57800    Credits
 how many     Credits is  glob    prok Silver ?
 glob     glob        Silver    is 34 Credits

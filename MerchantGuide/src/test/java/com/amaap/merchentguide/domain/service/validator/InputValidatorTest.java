@@ -14,7 +14,7 @@ class InputValidatorTest {
         String inputLine = "glob is I";
 
         // act
-        boolean isValid = InputValidator.unitValidator(inputLine);
+        boolean isValid = InputValidator.validateUnit(inputLine);
 
         // assert
         assertTrue(isValid);
@@ -26,7 +26,7 @@ class InputValidatorTest {
         String inputLine = "glob is S";
 
         // act
-        boolean isValid = InputValidator.unitValidator(inputLine);
+        boolean isValid = InputValidator.validateUnit(inputLine);
 
         // assert
         assertFalse(isValid);
@@ -38,7 +38,7 @@ class InputValidatorTest {
         String inputLine = "glob prok Gold is 57800 Credits";
 
         // act
-        boolean isValid = InputValidator.metalCreditsValidator(inputLine);
+        boolean isValid = InputValidator.validateMetalCredits(inputLine);
 
         // assert
         assertTrue(isValid);
@@ -50,7 +50,7 @@ class InputValidatorTest {
         String inputLine = "glob prok wood is 57800 Credits";
 
         // act
-        boolean isValid = InputValidator.metalCreditsValidator(inputLine);
+        boolean isValid = InputValidator.validateMetalCredits(inputLine);
 
         // assert
         assertFalse(isValid);

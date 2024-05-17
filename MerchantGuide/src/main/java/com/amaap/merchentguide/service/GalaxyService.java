@@ -18,8 +18,8 @@ import jakarta.inject.Inject;
 import java.io.*;
 import java.util.List;
 
-import static com.amaap.merchentguide.domain.service.validator.InputValidator.metalCreditsValidator;
-import static com.amaap.merchentguide.domain.service.validator.InputValidator.unitValidator;
+import static com.amaap.merchentguide.domain.service.validator.InputValidator.validateMetalCredits;
+import static com.amaap.merchentguide.domain.service.validator.InputValidator.validateUnit;
 
 public class GalaxyService {
     private final IntergalacticUnitService intergalacticUnitService;
@@ -40,13 +40,13 @@ public class GalaxyService {
             String line;
             while ((line = br.readLine()) != null) {
                 if (line.matches("^([a-zA-Z]+)\\s+is\\s+([IVXLCDM])$")) {
-                    boolean isValidUnit = unitValidator(line);
+                    boolean isValidUnit = validateUnit(line);
                     if (isValidUnit) {
                         IntergalacticUnit parsedUnit = InputParser.parseUnit(line);
                         intergalacticUnitService.create(parsedUnit.getIntergalacticValue(), parsedUnit.getRomanValue(), parsedUnit.getActualValue());
                     }
                 } else if (line.matches("^([a-zA-Z]+(?:\\s+[a-zA-Z]+)*)\\s+([a-zA-Z]+)\\s+is\\s+(\\d+)\\s+Credits$")) {
-                    boolean isValidMetal = metalCreditsValidator(line);
+                    boolean isValidMetal = validateMetalCredits(line);
                     if (isValidMetal) {
                         MetalDto metalDto = InputParser.parseMetal(line, intergalacticUnitService);
                         metalService.create(metalDto.metal, metalDto.credits);

@@ -1,9 +1,15 @@
-FROM openjdk:latest
+FROM gradle:7.5-jdk-alpine AS builder
 
-ARG JAR_FILE_LOCATION=build/libs/MerchantGuide-1.0-SNAPSHOT.jar
+WORKDIR /app
 
-WORKDIR /app/merchantguid
+COPY . .
 
-COPY ${JAR_FILE_LOCATION} app.jar
+RUN ./gradlew build
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+FROM openjdk:17
+
+WORKDIR /app
+
+COPY --from=builder /app/gradlew ./gradlew
+
+CMD ["/app/gradlew", "run"]

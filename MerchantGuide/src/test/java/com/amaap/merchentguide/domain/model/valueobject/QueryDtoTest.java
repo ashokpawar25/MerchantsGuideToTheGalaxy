@@ -12,7 +12,6 @@ class QueryDtoTest {
     @Test
     void shouldBeAbleToCreateQuery() throws InvalidQueryDataException {
         // arrange
-        int id = 1;
         QueryType queryType = QueryType.UNIT_QUERY;
         String queryContent = "How much is glob glob ?";
         QueryDto expected = new QueryDto(queryType, queryContent);
