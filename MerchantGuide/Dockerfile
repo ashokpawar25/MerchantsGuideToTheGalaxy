@@ -10,6 +10,8 @@ FROM openjdk:17
 
 WORKDIR /app
 
-COPY --from=builder /app/gradlew ./gradlew
+COPY --from=builder /app /app
 
-CMD ["/app/gradlew", "run"]
+RUN chmod +x ./gradlew
+
+CMD ["./gradlew", "run"]
