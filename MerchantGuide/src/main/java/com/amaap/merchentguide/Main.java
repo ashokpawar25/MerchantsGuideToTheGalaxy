@@ -7,7 +7,8 @@ import com.google.inject.Injector;
 
 public class Main {
     public static void main(String[] args) throws InvalidInputFileDataException, InvalidRomanValueException {
-        Injector injector = Guice.createInjector(new AppModule());
+//        Injector injector = Guice.createInjector(new AppModule());
+        Injector injector = Guice.createInjector(new MongoDatabaseModule());
         GalaxyController galaxyController = injector.getInstance(GalaxyController.class);
         galaxyController.readFile("src/main/java/com/amaap/merchentguide/resources/inputData.txt");
         String result = galaxyController.processQueries();
