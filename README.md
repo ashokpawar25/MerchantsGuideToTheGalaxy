@@ -68,6 +68,9 @@ I have no idea what you are talking about
 - Factory Design pattern:
   I used the factory design pattern to get the instance of different types of query processor classes fron the factory.
 
+## Dockerization
+- I have added Dockerfile and docker-compose file in the application.
+
 # domain Package - It consist domain models and domain services
 ## domain.model.entity Package - It consist all the entities
 
