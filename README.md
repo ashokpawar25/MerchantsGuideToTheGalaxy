@@ -314,6 +314,9 @@ I have no idea what you are talking about
 - `public String processQueries()`
 
 # Repository Package - Classes from this package interact with the database, performing operations requested by the services.
+### There are two types of repositories I used for this problem
+- Inmemory repository : This repository will interact with inmemeory database
+- Mongo Reposiotory : This repository will interact with mongodb database
 
 ## InMemoryIntergalacticUnitRepository
 
